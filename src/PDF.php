@@ -4,15 +4,15 @@ namespace BeautyBill;
 
 class PDF extends \tFPDF
 {
-    public $sideMargin = 20;
+    private $sideMargin = 20;
 
-    public $topMargin = 10;
+    private $topMargin = 10;
 
-    public $topInfoBoxWidth = 50;
+    private $topInfoBoxWidth = 50;
 
-    protected $headHight = 45;
+    private $headHight = 45;
 
-    private $methods;
+    private $taxNumber;
 
     public function __construct()
     {
@@ -28,12 +28,10 @@ class PDF extends \tFPDF
         $this->AliasNbPages();
         $this->SetMargins($this->sideMargin, $this->topMargin);
         $this->AddPage();
-
-        $this->methods = [];
     }
 
-    public function addMethod($method)
+    public function taxNumber($taxNumber)
     {
-        $this->methods[] = $method;
+        $this->taxNumber = $taxNumber;
     }
 }

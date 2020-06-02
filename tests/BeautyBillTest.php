@@ -13,6 +13,7 @@ class BeautyBillTest extends TestCase
 
         $output = $bill->logo(__DIR__ . '/files/logo2.png')
              ->headerBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
+             ->taxNumber('99/999/99999')
              ->output('s');
         //->output('F', 'test.pdf');
 
