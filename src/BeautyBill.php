@@ -3,67 +3,74 @@
 namespace BeautyBill;
 
 require_once __DIR__ . '/../vendor/autoload.php';
+//require_once __DIR__ . '/Partials/Header.php';
 
-class BeautyBill extends \tFPDF
+class BeautyBill
 {
     protected $infoText;
 
     protected $timestamp;
 
-    protected $sideMargin = 20;
+    protected $pdf;
 
-    protected $topMargin = 10;
-
-    protected $headHight = 45;
-
-    protected $barWidth = 8;
-
-    protected $topInfoBoxWidth = 50;
-
-    public function __construct()
+    public function __construct(array $parcials = [])
     {
-        parent::__construct();
-
         $this->timestamp = time();
 
-        $this->SetMargins($this->sideMargin, $this->topMargin);
+        $this->pdf = new PDF();
 
-        $this->AddFont('DejaVuSansCondensed', '', 'DejaVuSansCondensed.ttf', true);
-        $this->AddFont('DejaVuSansCondensed', 'B', 'DejaVuSansCondensed-Bold.ttf', true);
-        $this->AddFont('DejaVuSansCondensed', 'BI', 'DejaVuSansCondensed-BoldOblique.ttf', true);
-        $this->AddFont('DejaVuSansCondensed', 'I', 'DejaVuSansCondensed-Oblique.ttf', true);
+        $this->methods = [];
 
-        $this->AliasNbPages();
-        $this->SetMargins($this->sideMargin, $this->topMargin);
-        $this->AddPage();
+        if (empty($parcials)) {
+            $parcials = [\BeautyBill\Parcials\HeaderLine::class,
+                \BeautyBill\Parcials\Logo::class,
+                \BeautyBill\Parcials\HeaderInfoBox::class,
+            ];
+        }
 
-        $this->drawHeaderLine();
+        $this->load($parcials);
+
+        if (array_key_exists('drawHeaderLine', $this->methods)) {
+            $this->drawHeaderLine();
+        }
     }
 
-    public function logo(string $path, int $x = 15, int $y = 10, int $w = 0, int $h  =25)
+    public function __call($name, $arguments)
     {
-        $this->Image($path, $x, $y, $w, $h);
+        if (array_key_exists($name, $this->methods)) {
+            $class = $this->methods[$name];
+            $closure = $class::getFunction();
 
-        return $this;
+            $closure = \Closure::bind($closure, $this->pdf, $this->pdf);
+
+            call_user_func_array($closure, $arguments);
+
+            return $this;
+        }
+
+        return call_user_func_array([$this->pdf, $name], $arguments);
     }
 
-    public function headerBox(array $infos, int $fontheight = 8)
+    public function load(array $classes)
     {
-        $this->SetFont('DejaVuSansCondensed', '', 8);
-        $text = implode("\n", $infos);
-        $this->SetX($this->w - $this->sideMargin - $this->topInfoBoxWidth);
-        $this->MultiCell($this->topInfoBoxWidth, 4, $text, '0', 'R');
+        $local_class = new \ReflectionClass($this);
+        $local_methods = $local_class->getMethods(\ReflectionMethod::IS_PUBLIC);
 
-        return $this;
-    }
+        foreach ($classes as $class) {
+            $methodname = $class::$functionname;
 
-    private function drawHeaderLine()
-    {
-        $this->SetLineWidth(2);
-        $this->SetDrawColor(224, 224, 224);
-        $this->Line(0, $this->headHight, ($this->w) * 0.5, $this->headHight);
-        $this->SetLineWidth(2);
-        $this->SetDrawColor(0, 136, 204);
-        $this->Line(($this->w) * 0.5, $this->headHight, $this->w, $this->headHight);
+            if (!is_subclass_of($class, '\BeautyBill\Parcials\ParcialAbstract')) {
+                throw new \Exception('Class is not extending from parcials.', 1);
+            }
+
+            if (in_array($methodname, $this->methods)) {
+                throw new \Exception('Method has been defined before.', 1);
+            }
+
+            if (in_array($methodname, $local_methods)) {
+                throw new \Exception('Method is unreachable because its already definied in BeautyBill. Change method name.', 1);
+            }
+            $this->methods[$methodname] = $class;
+        }
     }
 }
