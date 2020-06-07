@@ -1,6 +1,8 @@
 <?php
 
-namespace BeautyBill\Parcials;
+namespace BeautyBill\Parcials\Header;
+
+use BeautyBill\Parcials\ParcialInterface;
 
 class DrawHeaderLine implements ParcialInterface
 {

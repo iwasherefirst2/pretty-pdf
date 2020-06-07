@@ -1,8 +1,10 @@
 <?php
 
-namespace BeautyBill\Parcials;
+namespace BeautyBill\Parcials\Header;
 
-class AddressBox implements ParcialInterface
+use BeautyBill\Parcials\ParcialInterface;
+
+class HeaderInfoBox implements ParcialInterface
 {
     public static function getFunction(): \Closure
     {

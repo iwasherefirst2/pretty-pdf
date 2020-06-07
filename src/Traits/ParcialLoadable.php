@@ -29,12 +29,17 @@ trait ParcialLoadable
     private function addBasicParcials()
     {
         $basic_parcials = [];
-        foreach (glob(__DIR__ . '/../Parcials/*.php') as $file) {
-            if (basename($file, '.php') == 'ParcialInterface') {
-                continue;
-            }
 
-            $basic_parcials[] = 'BeautyBill\\Parcials\\' . basename($file, '.php');
+        $iterator = new \RecursiveDirectoryIterator(__DIR__ . '/../Parcials');
+
+        foreach (new \RecursiveIteratorIterator($iterator) as $directoryIterator) {
+            if ($directoryIterator->getExtension() == 'php') {
+                if (basename($directoryIterator->getFilename(), '.php') == 'ParcialInterface') {
+                    continue;
+                }
+
+                $basic_parcials[] = $this->getBeautyBillNamespace($directoryIterator->getPathName());
+            }
         }
 
         $this->load($basic_parcials);
@@ -53,15 +58,26 @@ trait ParcialLoadable
             $methodname = $this->getMethodName($class);
 
             if (!is_subclass_of($class, '\BeautyBill\Parcials\ParcialInterface')) {
-                throw new \Exception('Class is not implementing \BeautyBill\Parcials\ParcialInterface.', 1);
+                throw new \Exception('Class ' . $class . ' is not implementing \BeautyBill\Parcials\ParcialInterface.', 1);
             }
 
             if (in_array($methodname, $local_methods)) {
                 throw new \Exception('Method is unreachable because its already definied in BeautyBill. Change method name.', 1);
             }
-            
+
             $this->methods[$methodname] = $class;
         }
+    }
+
+    private function getBeautyBillNamespace($string)
+    {
+        // Replace absolute path (coming from __DIR__)
+        $string = preg_replace('#^.*/\.\.#', 'BeautyBill', $string);
+
+        // Remove extensions
+        $string =  preg_replace('#\.php$#', '', $string);
+
+        return strtr($string, DIRECTORY_SEPARATOR, '\\');
     }
 
     private function getMethodName($string)
