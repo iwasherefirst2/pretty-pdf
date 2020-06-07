@@ -12,7 +12,7 @@ class BeautyBillTest extends TestCase
         $bill = new BeautyBill();
 
         $output = $bill->logo(__DIR__ . '/files/logo2.png')
-             ->headerBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
+             ->headerInfoBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
              ->taxNumber('99/999/99999')
              ->output('s');
         //->output('F', 'test.pdf');
@@ -21,7 +21,7 @@ class BeautyBillTest extends TestCase
     }
 
     // One cannot compare the output content directly
-    // with the file, because of metadata (creation date).
+    // with the file, because of metadata (creation date will differ).
     // As a workaround, we convert the pdfs to images
     // and compare the images.
     // Credit goes to:

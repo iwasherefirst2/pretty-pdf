@@ -2,7 +2,7 @@
 
 namespace BeautyBill\Parcials;
 
-class HeaderInfoBox implements ParcialInterface
+class AddressBox implements ParcialInterface
 {
     public static function getFunction(): \Closure
     {

@@ -2,10 +2,8 @@
 
 namespace BeautyBill\Parcials;
 
-class HeaderLine extends ParcialAbstract
+class DrawHeaderLine implements ParcialInterface
 {
-    public static $functionname = 'drawHeaderLine';
-
     public static function getFunction(): \Closure
     {
         return function () {
