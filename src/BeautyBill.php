@@ -11,18 +11,16 @@ class BeautyBill
 
     private $pdf;
 
-    private $timestamp;
-
-    public function __construct(array $customParcials = [], array $finishers = [], $allowOverwrite = false)
+    public function __construct()
     {
-        $this->timestamp = time();
-
-        $this->allowOverwrite = $allowOverwrite;
+        $this->allowOverwrite = false;
 
         $this->pdf = new PDF();
-        
+
         $this->addBasicParcials();
-        $this->load($customParcials);
-        $this->drawHeaderLine();
+    }
+
+    public function setLocalizationPath(string $path)
+    {
     }
 }

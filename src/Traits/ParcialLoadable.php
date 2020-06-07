@@ -35,6 +35,30 @@ trait ParcialLoadable
         return $this;
     }
 
+    public function output()
+    {
+        $this->drawHeaderLine();
+
+        return call_user_func_array([$this->pdf, 'output'], func_get_args());
+    }
+
+    /**
+     * Allow uses to overwrite existing methods
+     */
+    public function allowOverwriting(): void
+    {
+        $this->allowOverwrite = true;
+    }
+
+    public function addCustomParcials(array $parcials): void
+    {
+        $this->load($parcials);
+    }
+
+    public function addFinisherParcials(array $parcials): void
+    {
+    }
+
     /**
      * Add all methods definied in the classes
      * in folder `Parcials`

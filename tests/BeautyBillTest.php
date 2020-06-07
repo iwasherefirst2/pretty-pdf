@@ -13,7 +13,6 @@ class BeautyBillTest extends TestCase
 
         $output = $bill->logo(__DIR__ . '/files/logo2.png')
              ->headerInfoBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
-             ->taxNumber('99/999/99999')
              ->output('s');
         //->output('F', 'test.pdf');
 
@@ -24,7 +23,9 @@ class BeautyBillTest extends TestCase
     {
         $this->expectException(\Exception::class);
 
-        $bill = new BeautyBill([\Tests\DrawHeaderLine::class]);
+        $bill = new BeautyBill();
+
+        $bill->addCustomParcials([\Tests\DrawHeaderLine::class]);
     }
 
     // One cannot compare the output content directly

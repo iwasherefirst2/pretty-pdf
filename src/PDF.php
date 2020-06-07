@@ -12,7 +12,7 @@ class PDF extends \tFPDF
 
     private $headHight = 45;
 
-    private $taxNumber;
+    private $data;
 
     public function __construct()
     {
@@ -30,8 +30,35 @@ class PDF extends \tFPDF
         $this->AddPage();
     }
 
-    public function taxNumber($taxNumber)
+    /**
+     * Store attribute under classname.
+     * The name has to be a class, to prevent
+     * overwriting of values.
+     *
+     * @param class $class
+     * @param mixed $value
+     */
+    public function set($class, $value)
     {
-        $this->taxNumber = $taxNumber;
+        if (!class_exists($class)) {
+            throw new \Exception('Class does not exist', 1);
+        }
+
+        $this->data[$class] = $value;
+    }
+
+    /**
+     * Get attribute under classname.
+     *
+     * @param class $class
+     * @param mixed $value
+     */
+    public function get($class)
+    {
+        if (!class_exists($class)) {
+            throw new \Exception('Class does not exist', 1);
+        }
+
+        return $this->data[$class];
     }
 }
