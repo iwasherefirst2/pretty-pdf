@@ -13,7 +13,7 @@ class BeautyBill
 
     private $timestamp;
 
-    public function __construct(array $parcials = [])
+    public function __construct(array $customParcials = [])
     {
         $this->timestamp = time();
 
@@ -21,7 +21,7 @@ class BeautyBill
 
         $this->addBasicParcials();
 
-        $this->load($parcials);
+        $this->load($customParcials);
 
         $this->drawHeaderLine();
     }
