@@ -78,7 +78,7 @@ trait ParcialLoadable
                 throw new \Exception('Class ' . $class . ' is not implementing \BeautyBill\Parcials\ParcialInterface.', 1);
             }
 
-            if (!$this->allowOverwrite && in_array($methodname, $this->methods)) {
+            if (!$this->allowOverwrite && array_key_exists($methodname, $this->methods)) {
                 throw new \Exception('You are overwriting an exiting methods. Please change method name or allow overwriting in BeautyBill constructor.', 1);
             }
 

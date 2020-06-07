@@ -20,6 +20,13 @@ class BeautyBillTest extends TestCase
         $this->assertEqualPDFs('Header.pdf', $output);
     }
 
+    public function test_dissalow_overwriting_functions_by_default()
+    {
+        $this->expectException(\Exception::class);
+
+        $bill = new BeautyBill([\Tests\DrawHeaderLine::class]);
+    }
+
     // One cannot compare the output content directly
     // with the file, because of metadata (creation date will differ).
     // As a workaround, we convert the pdfs to images
@@ -42,5 +49,19 @@ class BeautyBillTest extends TestCase
 
         $diff = $assertedImagick->compareImages($testImagick, 1);
         $this->assertSame(0.0, $diff[1]);
+    }
+}
+
+class DrawHeaderLine implements \BeautyBill\Parcials\ParcialInterface
+{
+    /**
+     * Draw line below logo and header infobox
+     * @return Closure
+     */
+    public static function getFunction(): \Closure
+    {
+        return function () {
+            echo 'Hallo';
+        };
     }
 }
