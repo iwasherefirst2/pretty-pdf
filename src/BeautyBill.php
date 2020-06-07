@@ -13,16 +13,16 @@ class BeautyBill
 
     private $timestamp;
 
-    public function __construct(array $customParcials = [])
+    public function __construct(array $customParcials = [], array $finishers = [], $allowOverwrite = false)
     {
         $this->timestamp = time();
 
+        $this->allowOverwrite = $allowOverwrite;
+
         $this->pdf = new PDF();
-
+        
         $this->addBasicParcials();
-
         $this->load($customParcials);
-
         $this->drawHeaderLine();
     }
 }

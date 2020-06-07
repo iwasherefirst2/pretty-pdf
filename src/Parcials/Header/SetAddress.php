@@ -4,8 +4,12 @@ namespace BeautyBill\Parcials\Header;
 
 use BeautyBill\Parcials\ParcialInterface;
 
-class AddressBox implements ParcialInterface
+class SetAddress implements ParcialInterface
 {
+    /**
+     * [getFunction description]
+     * @return Closure
+     */
     public static function getFunction(): \Closure
     {
         return function (array $infos, int $fontheight = 8) {

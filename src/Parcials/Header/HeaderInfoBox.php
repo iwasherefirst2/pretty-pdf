@@ -6,6 +6,10 @@ use BeautyBill\Parcials\ParcialInterface;
 
 class HeaderInfoBox implements ParcialInterface
 {
+    /**
+     * Add infobox in the top right corner of invoice
+     * @return Closure
+     */
     public static function getFunction(): \Closure
     {
         return function (array $infos, int $fontheight = 8) {

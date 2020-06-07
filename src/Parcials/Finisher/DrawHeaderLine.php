@@ -1,11 +1,15 @@
 <?php
 
-namespace BeautyBill\Parcials\Header;
+namespace BeautyBill\Parcials\Finisher;
 
 use BeautyBill\Parcials\ParcialInterface;
 
 class DrawHeaderLine implements ParcialInterface
 {
+    /**
+     * Draw line below logo and header infobox
+     * @return Closure
+     */
     public static function getFunction(): \Closure
     {
         return function () {

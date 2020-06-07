@@ -4,8 +4,17 @@ namespace BeautyBill\Traits;
 
 trait ParcialLoadable
 {
+    protected $allowOverwrite;
+
     private $methods = [];
 
+    /**
+     * Add methods defined in parcials to
+     * object with this trait
+     * @param  string $name
+     * @param  array $arguments
+     * @return this
+     */
     public function __call($name, $arguments)
     {
         if ($name == 'output') {
@@ -26,7 +35,11 @@ trait ParcialLoadable
         return $this;
     }
 
-    private function addBasicParcials()
+    /**
+     * Add all methods definied in the classes
+     * in folder `Parcials`
+     */
+    private function addBasicParcials(): void
     {
         $basic_parcials = [];
 
@@ -45,7 +58,11 @@ trait ParcialLoadable
         $this->load($basic_parcials);
     }
 
-    private function load($classes)
+    /**
+     * Add methods of $classes
+     * @param  array $classes
+     */
+    private function load(array $classes): void
     {
         if (empty($classes)) {
             return;
@@ -61,6 +78,10 @@ trait ParcialLoadable
                 throw new \Exception('Class ' . $class . ' is not implementing \BeautyBill\Parcials\ParcialInterface.', 1);
             }
 
+            if (!$this->allowOverwrite && in_array($methodname, $this->methods)) {
+                throw new \Exception('You are overwriting an exiting methods. Please change method name or allow overwriting in BeautyBill constructor.', 1);
+            }
+
             if (in_array($methodname, $local_methods)) {
                 throw new \Exception('Method is unreachable because its already definied in BeautyBill. Change method name.', 1);
             }
@@ -69,7 +90,12 @@ trait ParcialLoadable
         }
     }
 
-    private function getBeautyBillNamespace($string)
+    /**
+     * Convert absolute pth to namespace
+     * @param  string $string
+     * @return string
+     */
+    private function getBeautyBillNamespace(string $string): string
     {
         // Replace absolute path (coming from __DIR__)
         $string = preg_replace('#^.*/\.\.#', 'BeautyBill', $string);

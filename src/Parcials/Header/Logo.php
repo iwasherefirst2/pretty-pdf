@@ -6,6 +6,10 @@ use BeautyBill\Parcials\ParcialInterface;
 
 class Logo implements ParcialInterface
 {
+    /**
+     * Add logo to invoice
+     * @return Closure
+     */
     public static function getFunction(): \Closure
     {
         return function (string $path, int $x = 15, int $y = 10, int $w = 0, int $h  =25) {
