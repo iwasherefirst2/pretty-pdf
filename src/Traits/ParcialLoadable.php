@@ -38,6 +38,7 @@ trait ParcialLoadable
     public function output()
     {
         $this->drawHeaderLine();
+        $this->invoiceHeadline();
 
         return call_user_func_array([$this->pdf, 'output'], func_get_args());
     }
