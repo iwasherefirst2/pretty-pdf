@@ -14,6 +14,8 @@ class PDF extends \tFPDF
 
     private $data;
 
+    private $words;
+
     public function __construct()
     {
         parent::__construct();
@@ -28,37 +30,18 @@ class PDF extends \tFPDF
         $this->AliasNbPages();
         $this->SetMargins($this->sideMargin, $this->topMargin);
         $this->AddPage();
+
+        $this->localize('en');
     }
 
-    /**
-     * Store attribute under classname.
-     * The name has to be a class, to prevent
-     * overwriting of values.
-     *
-     * @param class $class
-     * @param mixed $value
-     */
-    public function set($class, $value)
+    public function localize($lang)
     {
-        if (!class_exists($class)) {
-            throw new \Exception('Class does not exist', 1);
+        if (!file_exists(__DIR__ . '/Localization/' . $lang . '.php')) {
+            throw new \Exception('File ' . $lang . '.php does not exists.', 1);
         }
 
-        $this->data[$class] = $value;
-    }
+        $this->words = include __DIR__ . '/Localization/' . $lang . '.php';
 
-    /**
-     * Get attribute under classname.
-     *
-     * @param class $class
-     * @param mixed $value
-     */
-    public function get($class)
-    {
-        if (!class_exists($class)) {
-            throw new \Exception('Class does not exist', 1);
-        }
-
-        return $this->data[$class];
+        var_dump($this->words);
     }
 }

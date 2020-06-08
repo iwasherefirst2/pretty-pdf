@@ -19,8 +19,4 @@ class BeautyBill
 
         $this->addBasicParcials();
     }
-
-    public function setLocalizationPath(string $path)
-    {
-    }
 }
