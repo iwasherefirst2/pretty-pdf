@@ -16,6 +16,8 @@ class PDF extends \tFPDF
 
     private $words;
 
+    private $lang;
+
     public function __construct()
     {
         parent::__construct();
@@ -42,6 +44,6 @@ class PDF extends \tFPDF
 
         $this->words = include __DIR__ . '/Localization/' . $lang . '.php';
 
-        var_dump($this->words);
+        $this->lang = $lang;
     }
 }

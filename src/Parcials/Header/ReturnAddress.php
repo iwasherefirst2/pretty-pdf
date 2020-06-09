@@ -14,8 +14,11 @@ class ReturnAddress implements ParcialInterface
     {
         return function (string $address) {
             $this->SetTextColor(0, 136, 204);
+            
             $this->SetXY($this->sideMargin, 51);
+
             $this->SetFont('DejaVuSansCondensed', '', 7);
+
             $this->Cell(100, 10, $address, 0, 1);
         };
     }

@@ -7,16 +7,63 @@ use PHPUnit\Framework\TestCase;
 
 class BeautyBillTest extends TestCase
 {
-    public function test_header()
+    public function test_header_basic()
     {
         $bill = new BeautyBill();
 
         $output = $bill->logo(__DIR__ . '/files/logo2.png')
              ->headerInfoBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
+             ->returnAddress('Dr. Schwadam, Schwinterfeldschraße 99, 10777 Berlin, Germany')
+             ->receiverAddress(['Michael Jackson', 'Colorado Hippo Zoo', '5225 Figueroa Mountain Rd', 'Los Olivos', 'CA 93441', 'United States'])
              ->output('s');
-        //->output('F', 'test.pdf');
 
         $this->assertEqualPDFs('Header.pdf', $output);
+    }
+
+    public function test_date()
+    {
+        $bill = new BeautyBill();
+
+        $output = $bill->setDate()
+                       ->output('s');
+
+        $this->assertEqualPDFs('Date.pdf', $output);
+    }
+
+    public function test_invoice_nr()
+    {
+        $bill = new BeautyBill();
+
+        $output = $bill->setInvoiceNumber('I 2020-03-21')
+                       ->output('s');
+
+        $this->assertEqualPDFs('InvoiceNumber.pdf', $output);
+    }
+
+    public function test_tax_nr()
+    {
+        $bill = new BeautyBill();
+
+        $output = $bill->setTaxNumber('18/455/82932')
+                       ->output('s');
+
+        $this->assertEqualPDFs('TaxNumber.pdf', $output);
+    }
+
+    public function test_full_header()
+    {
+        $bill = new BeautyBill();
+
+        $output = $bill->logo(__DIR__ . '/files/logo2.png')
+             ->headerInfoBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
+             ->returnAddress('Dr. Schwadam, Schwinterfeldschraße 99, 10777 Berlin, Germany')
+             ->receiverAddress(['Michael Jackson', 'Colorado Hippo Zoo', '5225 Figueroa Mountain Rd', 'Los Olivos', 'CA 93441', 'United States'])
+             ->setDate()
+             ->setInvoiceNumber('I 2020-03-21')
+             ->setTaxNumber('18/455/82932')
+             ->output('s');
+
+        $this->assertEqualPDFs('FullHeader.pdf', $output);
     }
 
     public function test_dissalow_overwriting_functions_by_default()

@@ -14,9 +14,13 @@ class ReceiverAddress implements ParcialInterface
     {
         return function (array $address) {
             $this->SetTextColor(0, 0, 0);
+
             $this->SetFont('DejaVuSansCondensed', '', 11);
+
             $this->SetXY($this->sideMargin, 61);
+
             $height = ReceiverAddress::getLineHeight($address, $this->w, $this->sideMargin);
+
             foreach ($address as $line) {
                 $this->MultiCell(($this->w)*0.5 - $this->sideMargin, $height, $line, 0, 'L');
             }
