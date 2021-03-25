@@ -1,7 +1,11 @@
 <?php
 
 return [
-    'Invoice' => 'Invoice',
-    'Date'    => 'Date',
-    'Tax-Number' => 'Tax-Number',
+    'Invoice'           => 'Invoice',
+    'Date'              => 'Date',
+    'Tax-Number'        => 'Tax-Number',
+    'Item Description'  => 'Item Description',
+    'Unit Price'        => 'Unit Price',
+    'Quantity'          => 'Quantity',
+    'Total'             => 'Total',
 ];

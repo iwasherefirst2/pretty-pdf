@@ -48,11 +48,6 @@ class PDF extends \tFPDF
         
         return $this->{$name};
     }
-    
-    public function documentWidth(): float
-    {
-        return $this->w;
-    }
 
     public function localize($lang)
     {

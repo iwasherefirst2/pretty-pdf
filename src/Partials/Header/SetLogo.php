@@ -4,7 +4,7 @@ namespace BeautyBill\Partials\Header;
 
 use BeautyBill\Partials\Drawable;
 
-class Logo extends Drawable
+class SetLogo extends Drawable
 {
     /**
      * @var string
