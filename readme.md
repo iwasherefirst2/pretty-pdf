@@ -11,7 +11,9 @@ This package is build on TFPDF.
 | zebra stripes | are neat      |    $1 |
 
 
-# How to test this package?
+# How does testing work?
+
+
 
 For local testing you may want to use the 
 enclosed docker file. First, get a the container running

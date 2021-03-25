@@ -6,73 +6,62 @@ use BeautyBill\BeautyBill;
 
 class BeautyBillHeaderTestCase extends BeautyBillTestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->bill = new BeautyBill();
+    }
+
     public function test_header_basic()
     {
-        $bill = new BeautyBill();
-
-        $output = $bill->logo(__DIR__ . '/files/logo.png')
+        $this->bill->logo(__DIR__ . '/files/logo.png')
              ->headerInfoBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
              ->returnAddress('Dr. Schwadam, Schwinterfeldschraße 99, 10777 Berlin, Germany')
-             ->receiverAddress(['Michael Jackson', 'Colorado Hippo Zoo', '5225 Figueroa Mountain Rd', 'Los Olivos', 'CA 93441', 'United States'])
-             ->output('s');
-
-        $this->assertEqualPDFs('Header.pdf', $output);
+             ->receiverAddress(['Michael Jackson', 'Colorado Hippo Zoo', '5225 Figueroa Mountain Rd', 'Los Olivos', 'CA 93441', 'United States']);
+        
+        $this->assertEqualPDFs('Header.pdf');
     }
 
     public function test_date()
     {
-        $bill = new BeautyBill();
-        
-        $output = $bill->date()->output('s') ;
+        $this->bill->date();
 
-        //$this->storePDF($bill, 'OM2G.pdf');
-
-        $this->assertEqualPDFs('Date.pdf', $output);
+        $this->assertEqualPDFs('Date.pdf');
     }
 
     public function test_invoice_nr()
     {
-        $bill = new BeautyBill();
+        $this->bill->invoiceNumber('I 2020-03-21');
 
-        $output = $bill->invoiceNumber('I 2020-03-21')
-                       ->output('s');
-
-        $this->assertEqualPDFs('InvoiceNumber.pdf', $output);
+        $this->assertEqualPDFs('InvoiceNumber.pdf');
     }
 
     public function test_tax_nr()
     {
-        $bill = new BeautyBill();
+        $this->bill->taxNumber('18/455/82932');
 
-        $output = $bill->taxNumber('18/455/82932')
-                       ->output('s');
-
-        $this->assertEqualPDFs('TaxNumber.pdf', $output);
+        $this->assertEqualPDFs('TaxNumber.pdf');
     }
 
     public function test_full_header()
     {
-        $bill = new BeautyBill();
-
-        $output = $bill->logo(__DIR__ . '/files/logo.png')
+        $this->bill->logo(__DIR__ . '/files/logo.png')
              ->headerInfoBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
              ->returnAddress('Dr. Schwadam, Schwinterfeldschraße 99, 10777 Berlin, Germany')
              ->receiverAddress(['Michael Jackson', 'Colorado Hippo Zoo', '5225 Figueroa Mountain Rd', 'Los Olivos', 'CA 93441', 'United States'])
              ->date()
              ->invoiceNumber('I 2020-03-21')
-             ->taxNumber('18/455/82932')
-             ->output('s');
+             ->taxNumber('18/455/82932');
 
-        $this->assertEqualPDFs('FullHeader.pdf', $output);
+        $this->assertEqualPDFs('FullHeader.pdf');
     }
 
     public function test_dissalow_overwriting_functions_by_default()
     {
         $this->expectException(\Exception::class);
-
-        $bill = new BeautyBill();
-
-        $bill->addCustomPartials([\Tests\HeaderLine::class]);
+        
+        $this->bill->addCustomPartials([\Tests\HeaderLine::class]);
     }
 }
 
