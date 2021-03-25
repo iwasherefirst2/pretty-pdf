@@ -4,7 +4,7 @@ namespace BeautyBill\Partials\Header;
 
 use BeautyBill\Partials\Drawable;
 
-class DrawHeaderLine extends Drawable
+class HeaderLine extends Drawable
 {
     /**
      * Draw line below logo and header infobox

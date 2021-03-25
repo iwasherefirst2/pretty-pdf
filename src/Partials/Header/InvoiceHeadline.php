@@ -4,7 +4,7 @@ namespace BeautyBill\Partials\Header;
 
 use BeautyBill\Partials\Drawable;
 
-class DrawInvoiceHeadline extends Drawable
+class InvoiceHeadline extends Drawable
 {
     public function draw(): void
     {

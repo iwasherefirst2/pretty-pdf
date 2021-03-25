@@ -115,11 +115,11 @@ class Loader
     private function addMethodFromClass($class): void
     {
         $methodname = $this->getMethodName($class);
-        
+       
         if (!$this->isDrawable($class)) {
             return;
         }
-
+    
         $this->validateNoOverwrite($methodname);
 
         $this->methods[$methodname] = $class;

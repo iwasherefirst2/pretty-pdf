@@ -26,8 +26,8 @@ class BeautyBill
     
     public function output()
     {
-        $this->drawHeaderLine();
-        $this->drawInvoiceHeadline();
+        $this->headerLine();
+        $this->invoiceHeadline();
         
         return call_user_func_array([$this->pdf, 'output'], func_get_args());
     }
@@ -67,8 +67,8 @@ class BeautyBill
         $this->loader->allowOverwrite = true;
     }
 
-    public function addCustomPartials(array $parcials): void
+    public function addCustomPartials(array $partials): void
     {
-        $this->loader->addMethodFromClasses($parcials);
+        $this->loader->addMethodFromClasses($partials);
     }
 }

@@ -4,7 +4,7 @@ namespace BeautyBill\Partials\Header;
 
 use BeautyBill\Partials\Drawable;
 
-class SetInvoiceNumber extends Drawable
+class InvoiceNumber extends Drawable
 {
     /**
      * @var string

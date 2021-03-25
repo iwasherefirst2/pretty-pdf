@@ -4,7 +4,7 @@ namespace BeautyBill\Partials\Header;
 
 use BeautyBill\Partials\Drawable;
 
-class SetReturnAddress extends Drawable
+class ReturnAddress extends Drawable
 {
     /**
      * @var string

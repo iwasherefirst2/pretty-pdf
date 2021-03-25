@@ -5,7 +5,7 @@ namespace BeautyBill\Partials\Header;
 use BeautyBill\Partials\Drawable;
 use BeautyBill\PDF;
 
-class SetReceiverAddress extends Drawable
+class ReceiverAddress extends Drawable
 {
     /**
      * @var array

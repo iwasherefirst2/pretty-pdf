@@ -4,7 +4,7 @@ namespace BeautyBill\Partials\Header;
 
 use BeautyBill\Partials\Drawable;
 
-class SetDate extends Drawable
+class Date extends Drawable
 {
     /**
      * @var int|null

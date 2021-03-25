@@ -4,7 +4,7 @@ namespace BeautyBill\Partials\Header;
 
 use BeautyBill\Partials\Drawable;
 
-class SetHeaderInfoBox extends Drawable
+class HeaderInfoBox extends Drawable
 {
     /**
      * @var int

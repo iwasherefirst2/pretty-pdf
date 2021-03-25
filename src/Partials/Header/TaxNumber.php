@@ -4,7 +4,7 @@ namespace BeautyBill\Partials\Header;
 
 use BeautyBill\Partials\Drawable;
 
-class SetTaxNumber extends Drawable
+class TaxNumber extends Drawable
 {
     /**
      * @var string
