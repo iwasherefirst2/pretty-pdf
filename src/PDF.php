@@ -25,6 +25,8 @@ class PDF extends \tFPDF
     private $mapNames = [
         'documentWidth' => 'w',
     ];
+    
+    private $localizationPath;
 
     public function __construct()
     {
@@ -41,6 +43,7 @@ class PDF extends \tFPDF
         $this->SetMargins($this->sideMargin, $this->topMargin);
         $this->AddPage();
 
+        $this->setLocalizationPath(__DIR__ . '/Localization/');
         $this->localize('en');
     }
 
@@ -52,14 +55,21 @@ class PDF extends \tFPDF
         
         return $this->{$name};
     }
+    
+    public function setLocalizationPath(string $localizationPath): void
+    {
+        $this->localizationPath = $localizationPath;
+    }
 
     public function localize($lang)
     {
-        if (!file_exists(__DIR__ . '/Localization/' . $lang . '.php')) {
-            throw new \Exception('File ' . $lang . '.php does not exists.', 1);
+        $fullPath = $this->localizationPath . $lang . '.php';
+        
+        if (!file_exists($fullPath)) {
+            throw new \Exception('File ' . $fullPath . ' does not exists.', 1);
         }
 
-        $this->words = include __DIR__ . '/Localization/' . $lang . '.php';
+        $this->words = include $fullPath;
 
         $this->lang = $lang;
     }
