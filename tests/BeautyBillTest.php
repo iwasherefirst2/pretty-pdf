@@ -11,11 +11,11 @@ class BeautyBillTest extends TestCase
     {
         $bill = new BeautyBill();
 
-        $output = $bill->logo(__DIR__ . '/files/logo2.png')
+        $output = $bill->logo(__DIR__ . '/files/logo.png')
              ->headerInfoBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
              ->returnAddress('Dr. Schwadam, Schwinterfeldschraße 99, 10777 Berlin, Germany')
              ->receiverAddress(['Michael Jackson', 'Colorado Hippo Zoo', '5225 Figueroa Mountain Rd', 'Los Olivos', 'CA 93441', 'United States'])
-             ->output('s');
+             ->output('s');     
 
         $this->assertEqualPDFs('Header.pdf', $output);
     }
@@ -24,7 +24,7 @@ class BeautyBillTest extends TestCase
     {
         $bill = new BeautyBill();
 
-        $output = $bill->setDate()
+        $output = $bill->setDate()           
                        ->output('s');
 
         $this->assertEqualPDFs('Date.pdf', $output);
@@ -54,13 +54,13 @@ class BeautyBillTest extends TestCase
     {
         $bill = new BeautyBill();
 
-        $output = $bill->logo(__DIR__ . '/files/logo2.png')
+        $output = $bill->logo(__DIR__ . '/files/logo.png')
              ->headerInfoBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
              ->returnAddress('Dr. Schwadam, Schwinterfeldschraße 99, 10777 Berlin, Germany')
              ->receiverAddress(['Michael Jackson', 'Colorado Hippo Zoo', '5225 Figueroa Mountain Rd', 'Los Olivos', 'CA 93441', 'United States'])
              ->setDate()
              ->setInvoiceNumber('I 2020-03-21')
-             ->setTaxNumber('18/455/82932')
+             ->setTaxNumber('18/455/82932')            
              ->output('s');
 
         $this->assertEqualPDFs('FullHeader.pdf', $output);
@@ -72,7 +72,7 @@ class BeautyBillTest extends TestCase
 
         $bill = new BeautyBill();
 
-        $bill->addCustomParcials([\Tests\DrawHeaderLine::class]);
+        $bill->addCustomPartials([\Tests\DrawHeaderLine::class]);
     }
 
     // One cannot compare the output content directly
@@ -84,7 +84,7 @@ class BeautyBillTest extends TestCase
     private function assertEqualPDFs($filename, $content)
     {
         $pdfContent = file_get_contents(__DIR__ . '/files/' . $filename);
-
+   
         $assertedImagick = new \Imagick();
         $assertedImagick->readImageBlob($pdfContent);
         $assertedImagick->resetIterator();
@@ -98,9 +98,14 @@ class BeautyBillTest extends TestCase
         $diff = $assertedImagick->compareImages($testImagick, 1);
         $this->assertSame(0.0, $diff[1]);
     }
+    
+    private function storePDF(BeautyBill $bill, $filename)
+    {
+        $bill->output('F', __DIR__ . '/files/' . $filename );
+    }
 }
 
-class DrawHeaderLine implements \BeautyBill\Parcials\ParcialInterface
+class DrawHeaderLine implements \BeautyBill\Partials\PartialInterface
 {
     /**
      * Draw line below logo and header infobox
