@@ -1,8 +1,8 @@
 <?php
 
-namespace BeautyBill\Partials\Body;
+namespace PrettyPdf\Partials\Body;
 
-use BeautyBill\Partials\Drawable;
+use PrettyPdf\Partials\Drawable;
 
 class AdditionalNote extends Drawable
 {
@@ -16,7 +16,7 @@ class AdditionalNote extends Drawable
         $this->description = $description;
     }
     
-    public function draw()
+    public function draw(): void
     {
         $y = $this->pdf->yPositionAfterTotalAmount;
         

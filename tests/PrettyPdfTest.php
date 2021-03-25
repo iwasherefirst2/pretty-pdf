@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-class BeautyBillTest extends BeautyBillTestCase
+class PrettyPdfTest extends PrettyPdfTestCase
 {
     public function test_complete_document()
     {
@@ -28,12 +28,12 @@ class BeautyBillTest extends BeautyBillTestCase
     }
 }
 
-class Logo extends \BeautyBill\Partials\Drawable
+class Logo extends \PrettyPdf\Partials\Drawable
 {
     /**
      * Draw line below logo and header infobox
      */
-    public function draw()
+    public function draw(): void
     {
         echo 'Hallo';
     }

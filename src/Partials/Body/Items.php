@@ -1,8 +1,8 @@
 <?php
 
-namespace BeautyBill\Partials\Body;
+namespace PrettyPdf\Partials\Body;
 
-use BeautyBill\Partials\Drawable;
+use PrettyPdf\Partials\Drawable;
 
 class Items extends Drawable
 {

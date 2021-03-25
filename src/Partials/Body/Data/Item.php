@@ -1,6 +1,6 @@
 <?php
 
-namespace BeautyBill\Partials\Body\Data;
+namespace PrettyPdf\Partials\Body\Data;
 
 class Item
 {

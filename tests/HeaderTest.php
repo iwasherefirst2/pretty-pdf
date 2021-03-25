@@ -2,15 +2,15 @@
 
 namespace Tests;
 
-use BeautyBill\BeautyBill;
+use PrettyPdf\PrettyPdf;
 
-class BeautyBillHeaderTestCase extends BeautyBillTestCase
+class HeaderTestCase extends PrettyPdfTestCase
 {
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->bill = new BeautyBill();
+        $this->bill = new PrettyPdf();
     }
 
     public function test_header_basic()

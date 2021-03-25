@@ -1,9 +1,9 @@
 <?php
 
-namespace BeautyBill\Partials\Header;
+namespace PrettyPdf\Partials\Header;
 
-use BeautyBill\Partials\Drawable;
-use BeautyBill\PDF;
+use PrettyPdf\Partials\Drawable;
+use PrettyPdf\PDF;
 
 class ReceiverAddress extends Drawable
 {

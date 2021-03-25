@@ -1,8 +1,8 @@
 <?php
 
-namespace BeautyBill\Partials\Header;
+namespace PrettyPdf\Partials\Header;
 
-use BeautyBill\Partials\Drawable;
+use PrettyPdf\Partials\Drawable;
 
 class InvoiceBox extends Drawable
 {
@@ -18,7 +18,7 @@ class InvoiceBox extends Drawable
         $this->data = $data;
     }
     
-    public function draw()
+    public function draw(): void
     {
         $this->addInvoiceHeadline();
         

@@ -1,8 +1,8 @@
 <?php
 
-namespace BeautyBill;
+namespace PrettyPdf;
 
-class BeautyBill
+class PrettyPdf
 {
     /**
      * @var PDF

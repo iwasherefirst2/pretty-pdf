@@ -1,12 +1,12 @@
 <?php
 
-namespace BeautyBill\Partials;
+namespace PrettyPdf\Partials;
 
-use BeautyBill\PDF;
+use PrettyPdf\PDF;
 
 /**
  * Class Drawable
- * @package BeautyBill\Partials
+ * @package PrettyPdf\Partials
  * @property float $headHight
  * @property array $words
  * @property float $documentWidth
@@ -40,6 +40,8 @@ abstract class Drawable
     {
         return $this->pdf->{$name};
     }
+    
+    abstract public function draw(): void;
       
     public function setPdf(PDF $pdf)
     {

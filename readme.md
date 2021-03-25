@@ -1,8 +1,53 @@
-# BeautyBill
+# PrettyPdf
 
-This package is build on TFPDF. 
+This package is build on tFPDF, i.e. it supports also UTF8.
 
-# Methods
+
+## Example
+
+```php 
+
+    $item = new \PrettyPdf\Partials\Body\Data\Item();
+
+    $item->description = 'A new currency';
+    $item->quantity = 5;
+    $item->name = 'Bitcoin';
+    $item->unitPrice = 2031.23;
+
+    $paymentInfoDate = new \PrettyPdf\Partials\Body\Data\PaymentInfo();
+
+    $paymentInfoDate->title = 'A really good title';
+    $paymentInfoDate->description = 'A long description comes in here';
+    $paymentInfoDate->bank = 'ING';
+    $paymentInfoDate->bic = 'BICXXX';
+    $paymentInfoDate->iban = 'DE42 4242 4242 4242 4242 24';
+    $paymentInfoDate->name = 'Beauty Bill Creator';
+
+    $bill = new \PrettyPdf\PrettyPdf();
+
+    $bill->logo('/path/to/your/logo.png')
+            ->headerInfoBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
+            ->returnAddress('Dr. Schwadam, Schwinterfeldschraße 99, 10777 Berlin, Germany')
+            ->receiverAddress(['Michael Jackson', 'Colorado Hippo Zoo', '5225 Figueroa Mountain Rd', 'Los Olivos', 'CA 93441', 'United States'])
+            ->invoiceBox(['Date' => 'Today', 'Invoice' => 'I 2020-03-22', 'Tax-Number' => '18/455/12345'])
+            ->items([$item], 19)
+            ->paymentInfo($paymentInfoDate)
+            ->additionalNote('Optioanl note. Nothing important here.')
+            ->output('/path/where/you/want/to/store/file.pdf');
+            
+```
+
+## Methods
+
+Most important function is the [output function](http://www.fpdf.org/en/doc/output.htm)
+which renders the pdf, either by saving
+it as a file or by viewing the PDF in the browser, or
+save it as a string.
+
+You can call all other functions from [FPDF](http://www.fpdf.org).
+
+In addition, the following functions are available:
+
 
 | Methods               | Description |
 | :-------------  | :-----|
@@ -17,41 +62,46 @@ This package is build on TFPDF.
 | paymentInfo($paymentInfoData) |  Receives an object of `\BeautyBill\Partials\Body\Data\PaymentInfo`. This will create an info how to pay on the lower left side. | 
 | additionalNote(string $text) | Showes a note for special rules that apply to invoice. Note appears on the lower right side. | 
 
-# Example
+## How can I add my own styling?
+
+Simply create a class that extends `PrettyPdf\Partials\Drawable`. 
 
 ```php 
+<?php 
 
-    $item = new \BeautyBill\Partials\Body\Data\Item();
+namespace MyApp\Styles;
 
-    $item->description = 'A new currency';
-    $item->quantity = 5;
-    $item->name = 'Bitcoin';
-    $item->unitPrice = 2031.23;
+class MyOwnStyle extends \PrettyPdf\Partials\Drawable
+{
+    public function draw(): void 
+    {
+        // Here you can use all functions from http://www.fpdf.org/ 
+        // to draw on your pdf.
+        $this->MultiCell(....);
+        $this->Cell(...);
+        $this->Rect(..);
+        
+    }
+}
+```
+Next, you need to register your class or classes to `PrettyPdf`:
 
-    $paymentInfoDate = new \BeautyBill\Partials\Body\Data\PaymentInfo();
+```php 
+$prettyPdf = new \PrettyPdf\PrettyPdf();
 
-    $paymentInfoDate->title = 'A really good title';
-    $paymentInfoDate->description = 'A long description comes in here';
-    $paymentInfoDate->bank = 'ING';
-    $paymentInfoDate->bic = 'BICXXX';
-    $paymentInfoDate->iban = 'DE42 4242 4242 4242 4242 24';
-    $paymentInfoDate->name = 'Beauty Bill Creator';
-
-    $bill = new \BeautyBill\BeautyBill();
-
-    $bill->logo('/path/to/your/logo.png')
-            ->headerInfoBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
-            ->returnAddress('Dr. Schwadam, Schwinterfeldschraße 99, 10777 Berlin, Germany')
-            ->receiverAddress(['Michael Jackson', 'Colorado Hippo Zoo', '5225 Figueroa Mountain Rd', 'Los Olivos', 'CA 93441', 'United States'])
-            ->invoiceBox(['Date' => 'Today', 'Invoice' => 'I 2020-03-22', 'Tax-Number' => '18/455/12345'])
-            ->items([$item], 19)
-            ->paymentInfo($paymentInfoDate)
-            ->additionalNote('Optioanl note. Nothing important here.')
-            ->output('/path/where/you/want/to/store/file.pdf');
-            
+$prettyPdf->addCustomPartials(['\MyApp\Styles\MyOwnStyle']);
 ```
 
-# How does testing work?
+Now you can use the method by simply calling the classname on `$prettyPdf`:
+
+```php 
+$prettyPdf->myOwnStyle()
+          ->output('/path/to/file.pdf');   
+```
+
+
+
+## How does testing work?
 
 A pdf will be created during the test and compared to
 an existing pdf. Since comparing pdf documents is not feasible,

@@ -1,9 +1,15 @@
 <?php
 
-namespace BeautyBill;
+namespace PrettyPdf;
 
 use Exception;
 
+/**
+ * Class Loader
+ * @package BeautyBill
+ *
+ * This class helps to
+ */
 class Loader
 {
     /**
@@ -59,18 +65,20 @@ class Loader
         $iterator = new \RecursiveDirectoryIterator(__DIR__ . '/Partials');
 
         foreach (new \RecursiveIteratorIterator($iterator) as $directoryIterator) {
-            if ($directoryIterator->getExtension() == 'php') {
-                if (basename($directoryIterator->getFilename(), '.php') == 'Drawable') {
-                    continue;
-                }
-
-                $classes[] = $this->getBeautyBillNamespace($directoryIterator->getPathName());
+            if (!$directoryIterator->getExtension() == 'php') {
+                continue;
             }
+            
+            if (basename($directoryIterator->getFilename(), '.php') == 'Drawable') {
+                continue;
+            }
+
+            $classes[] = $this->getBeautyBillNamespace($directoryIterator->getPathName());
         }
         
         $this->addMethodFromClasses($classes);
     }
-
+    
     /**
      * Convert absolute pth to namespace
      * @param  string $string
@@ -78,17 +86,17 @@ class Loader
      */
     private function getBeautyBillNamespace(string $string): string
     {
-
-        // Replace absolute path (coming from __DIR__)
-        $string = preg_replace('#.*src#', 'BeautyBill', $string);
+        // Replace absolute path from outside with Beautybill
+        $string = preg_replace('#.*src#', 'PrettyPdf', $string);
 
         // Remove extensions
         $string =  preg_replace('#\.php$#', '', $string);
 
+        // Replace directoy seperator with backslash
         return strtr($string, DIRECTORY_SEPARATOR, '\\');
     }
 
-    private function getMethodName($string)
+    private function getMethodName($string): string
     {
         return lcfirst(preg_replace('/^.*\\\\/', '', $string));
     }
@@ -133,7 +141,7 @@ class Loader
     {
         $reflectionClass = new \ReflectionClass($class);
 
-        return $reflectionClass->getParentClass()->name ==  'BeautyBill\Partials\Drawable';
+        return $reflectionClass->getParentClass()->name ==  'PrettyPdf\Partials\Drawable';
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-class BeautyBillBodyTest extends BeautyBillTestCase
+class BodyTest extends PrettyPdfTestCase
 {
     public function test_body_basic_net()
     {

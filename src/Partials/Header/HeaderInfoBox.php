@@ -1,8 +1,8 @@
 <?php
 
-namespace BeautyBill\Partials\Header;
+namespace PrettyPdf\Partials\Header;
 
-use BeautyBill\Partials\Drawable;
+use PrettyPdf\Partials\Drawable;
 
 class HeaderInfoBox extends Drawable
 {

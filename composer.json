@@ -1,5 +1,5 @@
 {
-    "name": "iwasherefirst2/beauty-bill",
+    "name": "iwasherefirst2/pretty-pdf",
     "description": "Create a beautiful invoice with PHP",
     "license": "MIT",
     "authors": [
@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "BeautyBill\\": "src/"
+            "PrettyPdf\\": "src/"
         }
     },
     "autoload-dev": {

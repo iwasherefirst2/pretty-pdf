@@ -1,6 +1,6 @@
 <?php
 
-namespace BeautyBill;
+namespace PrettyPdf;
 
 class PDF extends \tFPDF
 {

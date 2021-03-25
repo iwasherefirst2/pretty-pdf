@@ -1,9 +1,9 @@
 <?php
 
-namespace BeautyBill\Partials\Body;
+namespace PrettyPdf\Partials\Body;
 
-use BeautyBill\Partials\Body\Data\PaymentInfo as PaymentInfoData;
-use BeautyBill\Partials\Drawable;
+use PrettyPdf\Partials\Body\Data\PaymentInfo as PaymentInfoData;
+use PrettyPdf\Partials\Drawable;
 
 class PaymentInfo extends Drawable
 {
@@ -17,7 +17,7 @@ class PaymentInfo extends Drawable
         $this->data =$data;
     }
     
-    public function draw()
+    public function draw(): void
     {
         $this->setY($this->pdf->yPositionAfterTable + 25);
 
