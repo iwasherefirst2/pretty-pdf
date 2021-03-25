@@ -2,7 +2,7 @@
 
 namespace BeautyBill\Partials\Body;
 
-class Item
+class ItemData
 {
     /**
      * @var string
@@ -23,4 +23,9 @@ class Item
      * @var string
      */
     public $quantity;
+    
+    public function getPrice()
+    {
+        return $this->unitPrice;
+    }
 }

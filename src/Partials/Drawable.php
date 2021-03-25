@@ -20,7 +20,7 @@ use BeautyBill\PDF;
  * @method setX(float $x)
  * @method setXY(float $x, float $y)
  * @method setTextColor(int $red, int $green, int $blue)
- * @method cell(float $width, float $height=0, string $content='', mixed $border=0, int $nextLine=0, string $align='L', bool $fill = false, mixed $link ='') http://www.fpdf.org/en/doc/cell.htm
+ * @method cell(float $width, float $height=0, string $content='', mixed $border=null, int $nextLine=0, string $align='L', bool $fill = false, mixed $link ='') http://www.fpdf.org/en/doc/cell.htm
  * @method multiCell(float $width, float $height=0, string $content='', mixed $border=0, string $align='L', bool $fill=false) http://www.fpdf.org/en/doc/multicell.htm
  * @method image(string $path, float $xPosition, float $yPosition, float $width, float $height, string $type ='', mixed $link = '') http://www.fpdf.org/en/doc/image.htm
  */
@@ -33,7 +33,7 @@ abstract class Drawable
     
     public function __call($name, $arguments)
     {
-        call_user_func_array([$this->pdf, $name], $arguments);
+        return call_user_func_array([$this->pdf, $name], $arguments);
     }
     
     public function __get($name)

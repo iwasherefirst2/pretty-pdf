@@ -18,6 +18,10 @@ class PDF extends \tFPDF
 
     private $lang;
     
+    public $yPositionAfterTable;
+    
+    public $yPositionAfterTotalAmount;
+    
     private $mapNames = [
         'documentWidth' => 'w',
     ];
