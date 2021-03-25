@@ -2,6 +2,14 @@
 
 This package is build on TFPDF. 
 
+# Methods
+
+| Methods               | Description |
+| :-------------  | :-----|
+| locale('en')     | Set language of document. Currently only is supported. Add a new languagefile in Localization folder.  |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+
 
 # How to test this package?
 

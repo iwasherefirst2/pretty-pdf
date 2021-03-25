@@ -2,22 +2,34 @@
 
 namespace BeautyBill\Partials\Header;
 
-use BeautyBill\Partials\PartialInterface;
-use Closure;
+use BeautyBill\Partials\Drawable;
 
-class HeaderInfoBox implements PartialInterface
+class HeaderInfoBox extends Drawable
 {
     /**
-     * Add infobox in the top right corner of invoice
-     * @return Closure
+     * @var int
      */
-    public static function getFunction(): Closure
+    private $fontHeight;
+
+    /**
+     * @var array
+     */
+    private $infos;
+
+    public function set(array $infos, int $fontHeight = 8): void
     {
-        return function (array $infos, int $fontheight = 8) {
-            $this->SetFont('DejaVuSansCondensed', '', $fontheight);
-            $text = implode("\n", $infos);
-            $this->SetX($this->w - $this->sideMargin - $this->topInfoBoxWidth);
-            $this->MultiCell($this->topInfoBoxWidth, 4, $text, '0', 'R');
-        };
+        $this->infos = $infos;
+        $this->fontHeight = $fontHeight;
+    }
+    
+    /**
+     * Add infobox in the top right corner of invoice
+     */
+    public function draw(): void
+    {
+        $this->setFont('DejaVuSansCondensed', '', $this->fontHeight);
+        $text = implode("\n", $this->infos);
+        $this->setX($this->documentWidth - $this->sideMargin - $this->topInfoBoxWidth);
+        $this->multiCell($this->topInfoBoxWidth, 4, $text, '0', 'R');
     }
 }

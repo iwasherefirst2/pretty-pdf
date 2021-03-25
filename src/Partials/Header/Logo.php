@@ -2,19 +2,25 @@
 
 namespace BeautyBill\Partials\Header;
 
-use BeautyBill\Partials\PartialInterface;
-use Closure;
+use BeautyBill\Partials\Drawable;
 
-class Logo implements PartialInterface
+class Logo extends Drawable
 {
     /**
-     * Add logo to invoice
-     * @return Closure
+     * @var string
      */
-    public static function getFunction(): Closure
+    private $path;
+
+    public function set(string $path): void
     {
-        return function (string $path, int $x = 15, int $y = 10, int $w = 0, int $h  = 25) {
-            $this->Image($path, $x, $y, $w, $h);
-        };
+        $this->path = $path;
+    }
+    
+    /**
+     * Add logo to invoice
+     */
+    public function draw(): void
+    {
+        $this->image($this->path, 15, 10, 0, 25);
     }
 }

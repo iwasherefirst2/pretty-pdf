@@ -2,25 +2,31 @@
 
 namespace BeautyBill\Partials\Header;
 
-use BeautyBill\Partials\PartialInterface;
-use Closure;
+use BeautyBill\Partials\Drawable;
 
-class ReturnAddress implements PartialInterface
+class ReturnAddress extends Drawable
 {
     /**
-     * Add infobox in the top right corner of invoice
-     * @return Closure
+     * @var string
      */
-    public static function getFunction(): Closure
+    private $address;
+
+    public function set(string $address): void
     {
-        return function (string $address) {
-            $this->SetTextColor(0, 136, 204);
+        $this->address = $address;
+    }
+    
+    /**
+     * Add infobox in the top right corner of invoice
+     */
+    public function draw(): void
+    {
+        $this->SetTextColor(0, 136, 204);
             
-            $this->SetXY($this->sideMargin, 51);
+        $this->SetXY($this->sideMargin, 51);
 
-            $this->SetFont('DejaVuSansCondensed', '', 7);
+        $this->SetFont('DejaVuSansCondensed', '', 7);
 
-            $this->Cell(100, 10, $address, 0, 1);
-        };
+        $this->Cell(100, 10, $this->address, 0, 1);
     }
 }

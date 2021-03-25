@@ -17,6 +17,10 @@ class PDF extends \tFPDF
     private $words;
 
     private $lang;
+    
+    private $mapNames = [
+        'documentWidth' => 'w',
+    ];
 
     public function __construct()
     {
@@ -34,6 +38,20 @@ class PDF extends \tFPDF
         $this->AddPage();
 
         $this->localize('en');
+    }
+
+    public function __get($name)
+    {
+        if (isset($this->mapNames[$name]) && !empty($name)) {
+            $name = $this->mapNames[$name];
+        }
+        
+        return $this->{$name};
+    }
+    
+    public function documentWidth(): float
+    {
+        return $this->w;
     }
 
     public function localize($lang)

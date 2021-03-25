@@ -2,39 +2,48 @@
 
 namespace BeautyBill\Partials\Header;
 
-use BeautyBill\Partials\PartialInterface;
-use Closure;
+use BeautyBill\Partials\Drawable;
 
-class SetDate implements PartialInterface
+class SetDate extends Drawable
 {
     /**
-     * Add infobox in the top right corner of invoice
-     * @return Closure
+     * @var int|null
      */
-    public static function getFunction(): Closure
+    private $timestamp;
+
+    public function set(int $timestamp = null)
     {
-        return function (int $timestamp = null) {
-            $this->SetFont('DejaVuSansCondensed', '', 11);
-            
-            $this->SetXY(($this->w) * 0.5, 75);
+        $this->timestamp = $timestamp;
+    }
+    
+    /**
+     * Add infobox in the top right corner of invoice
+     */
+    public function draw(): void
+    {
+        $this->setFont('DejaVuSansCondensed', '', 11);
 
-            $this->SetTextColor(40, 40, 40);
+        $this->setXY(($this->documentWidth) * 0.5, 75);
 
-            $this->Cell(($this->w)*0.5 * 1/3, 5, $this->words['Date'] . ':', 0, 0);
+        $this->setTextColor(40, 40, 40);
 
-            if (strtolower($this->lang) == 'en') {
-                $datum = date('d M Y', $timestamp);
-            } else {
-                $datum = date('d/m/Y', $timestamp);
-            }
+        $this->cell(($this->documentWidth) * 0.5 * 1 / 3, 5, $this->words['Date'] . ':');
 
-            $this->SetXY(($this->w)*0.5, 80);
+        $this->setXY(($this->documentWidth) * 0.5, 80);
 
-            $this->SetFont('DejaVuSansCondensed', 'B', 11);
+        $this->setFont('DejaVuSansCondensed', 'B', 11);
 
-            $this->SetTextColor(0, 0, 0);
+        $this->setTextColor(0, 0, 0);
 
-            $this->MultiCell(($this->w)*0.5 * 1/3, 5, $datum, 0, 'L');
-        };
+        $this->multiCell(($this->documentWidth) * 0.5 * 1 / 3, 5, $this->getDate());
+    }
+    
+    private function getDate()
+    {
+        if (strtolower($this->lang) == 'en') {
+            return date('d M Y', $this->timestamp);
+        }
+        
+        return date('d/m/Y', $this->timestamp);
     }
 }

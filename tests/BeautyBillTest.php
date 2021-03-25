@@ -23,9 +23,11 @@ class BeautyBillTest extends TestCase
     public function test_date()
     {
         $bill = new BeautyBill();
+        
+   
+        $output = $bill->setDate()->output('s') ;
 
-        $output = $bill->setDate()           
-                       ->output('s');
+        //$this->storePDF($bill, 'OM2G.pdf');
 
         $this->assertEqualPDFs('Date.pdf', $output);
     }
@@ -105,16 +107,14 @@ class BeautyBillTest extends TestCase
     }
 }
 
-class DrawHeaderLine implements \BeautyBill\Partials\PartialInterface
+class DrawHeaderLine extends \BeautyBill\Partials\Drawable
 {
     /**
      * Draw line below logo and header infobox
      * @return Closure
      */
-    public static function getFunction(): \Closure
+    public function draw()
     {
-        return function () {
-            echo 'Hallo';
-        };
+        echo 'Hallo';
     }
 }

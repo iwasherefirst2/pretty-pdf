@@ -48,7 +48,7 @@ return PhpCsFixer\Config::create()
         'no_useless_else' => true,
         'no_unused_imports' => true,
         'ordered_imports' => true,
-        'ordered_class_elements' => true,
+        //'ordered_class_elements' => true,
         'single_quote' => true,
         'whitespace_after_comma_in_array' => true,
         'backtick_to_shell_exec' => true,
@@ -60,8 +60,10 @@ return PhpCsFixer\Config::create()
         'trim_array_spaces' => true,
         'space_after_semicolon' => true,
     ])
+    ->setLineEnding(PHP_EOL)
     ->setFinder(PhpCsFixer\Finder::create()
     ->exclude('vendor')
     ->in(__DIR__)
     )
+    ->setCacheFile(__DIR__.'/.php_cs.cache')
 ;
