@@ -13,3 +13,5 @@ RUN curl -sS https://getcomposer.org/installer | php -d detect_unicode=Off \
         
 RUN docker-php-ext-install gd && apt-get update && apt-get install -y ghostscript-x
 
+#Important for composer
+RUN set -eux; apt-get update; apt-get install -y libzip-dev zlib1g-dev; docker-php-ext-install zip
