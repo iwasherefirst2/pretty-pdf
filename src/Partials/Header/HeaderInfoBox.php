@@ -12,13 +12,23 @@ class HeaderInfoBox extends Drawable
     private $fontHeight;
 
     /**
+     * @var int
+     */
+    private $headHight = 45;
+
+    /**
+     * @var int
+     */
+    private $topInfoBoxWidth = 50;
+
+    /**
      * @var array
      */
     private $infos;
 
     public function set(array $infos, int $fontHeight = 8): void
     {
-        $this->infos = $infos;
+        $this->infos      = $infos;
         $this->fontHeight = $fontHeight;
     }
     
@@ -40,7 +50,6 @@ class HeaderInfoBox extends Drawable
         $this->setLineWidth(2);
         $this->setDrawColor(224, 224, 224);
         $this->line(0, $this->headHight, ($this->documentWidth) * 0.5, $this->headHight);
-        $this->setLineWidth(2);
         $this->setDrawColor(0, 136, 204);
         $this->line(($this->documentWidth) * 0.5, $this->headHight, $this->documentWidth, $this->headHight);
     }

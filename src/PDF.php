@@ -7,13 +7,7 @@ class PDF extends \tFPDF
     private $sideMargin = 20;
 
     private $topMargin = 10;
-
-    private $topInfoBoxWidth = 50;
-
-    private $headHight = 45;
-
-    private $data;
-
+    
     private $words;
 
     private $lang;
