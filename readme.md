@@ -6,10 +6,50 @@ This package is build on TFPDF.
 
 | Methods               | Description |
 | :-------------  | :-----|
-| locale('en')     | Set language of document. Currently only is supported. Add a new languagefile in Localization folder.  |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+| localize('en')     | Set language of document. Currently only English (en) and German (de) is supported. Feel free to add more languages to the repository, merge requests are welcome.  |
+| setLocalizationPath(/full/path/)      |    Full path to your custom localization files, if you don't want to use the repositorie ones.  |
+| logo(/full/path/logo.png) | Adds the logo to your pdf to the top left corner.  |
+| receiverAdress(['Max Musterman', 'Victoria Luise Platz 97', '10777 Berlin', 'Germany') | Address of document. Height will be adjustet so that it fits on the envelope. Each entry of the array has its own line.  |
+| returnAddress(['Max Musterman', 'Victoria Luise Platz 97', '10777 Berlin', 'Germany') |Return address. Will be written as single line above address. |
+| invoiceBox(['Date' => 'Today', 'Invoice' => 'I 2020-03-22', 'Tax-Number' => '18/455/12345']) | Will add a little box with heading "Invoice" right from the address.|
+| headerInfoBox(['Max Mastermind', 'Your Adress', 'New York']) | Your address in the top right corner. |
+| items([$itemA, $itemB, $itemC], $vat) | Receives an array (or any iterable object) of `\BeautyBill\Partials\Body\Data\Item` objects and the VAT in percent. For example, in Germany we have 19% VAT, so 19 has to be passed as a parameter. Each represents a row of your invoice |
+| paymentInfo($paymentInfoData) |  Receives an object of `\BeautyBill\Partials\Body\Data\PaymentInfo`. This will create an info how to pay on the lower left side. | 
+| additionalNote(string $text) | Showes a note for special rules that apply to invoice. Note appears on the lower right side. | 
 
+# Example
+
+```php 
+
+    $item = new \BeautyBill\Partials\Body\Data\Item();
+
+    $item->description = 'A new currency';
+    $item->quantity = 5;
+    $item->name = 'Bitcoin';
+    $item->unitPrice = 2031.23;
+
+    $paymentInfoDate = new \BeautyBill\Partials\Body\Data\PaymentInfo();
+
+    $paymentInfoDate->title = 'A really good title';
+    $paymentInfoDate->description = 'A long description comes in here';
+    $paymentInfoDate->bank = 'ING';
+    $paymentInfoDate->bic = 'BICXXX';
+    $paymentInfoDate->iban = 'DE42 4242 4242 4242 4242 24';
+    $paymentInfoDate->name = 'Beauty Bill Creator';
+
+    $bill = new \BeautyBill\BeautyBill();
+
+    $bill->logo('/path/to/your/logo.png')
+            ->headerInfoBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
+            ->returnAddress('Dr. Schwadam, Schwinterfeldschraße 99, 10777 Berlin, Germany')
+            ->receiverAddress(['Michael Jackson', 'Colorado Hippo Zoo', '5225 Figueroa Mountain Rd', 'Los Olivos', 'CA 93441', 'United States'])
+            ->invoiceBox(['Date' => 'Today', 'Invoice' => 'I 2020-03-22', 'Tax-Number' => '18/455/12345'])
+            ->items([$item], 19)
+            ->paymentInfo($paymentInfoDate)
+            ->additionalNote('Optioanl note. Nothing important here.')
+            ->output('/path/where/you/want/to/store/file.pdf');
+            
+```
 
 # How does testing work?
 

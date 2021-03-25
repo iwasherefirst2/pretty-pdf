@@ -24,11 +24,11 @@ class BeautyBillTest extends BeautyBillTestCase
     {
         $this->expectException(\Exception::class);
 
-        $this->bill->addCustomPartials([\Tests\HeaderLine::class]);
+        $this->bill->addCustomPartials([\Tests\Logo::class]);
     }
 }
 
-class HeaderLine extends \BeautyBill\Partials\Drawable
+class Logo extends \BeautyBill\Partials\Drawable
 {
     /**
      * Draw line below logo and header infobox
