@@ -3,9 +3,12 @@
 namespace BeautyBill\Partials\Header;
 
 use BeautyBill\Partials\Drawable;
+use BeautyBill\Traits\InvoiceBoxable;
 
 class TaxNumber extends Drawable
 {
+    use InvoiceBoxable;
+
     /**
      * @var string
      */
@@ -21,22 +24,6 @@ class TaxNumber extends Drawable
      */
     public function draw()
     {
-        $this->setFont('DejaVuSansCondensed', '', 11);
-
-        $x_pos = ($this->documentWidth) * 0.5 + ($this->documentWidth)*0.5 * 2/3;
-
-        $this->setXY($x_pos, 75);
-
-        $this->setTextColor(40, 40, 40);
-            
-        $this->cell(($this->documentWidth)*0.5 * 1/3, 5, $this->words['Tax-Number'] . ':');
-
-        $this->setXY($x_pos, 80);
-
-        $this->setFont('DejaVuSansCondensed', 'B', 11);
-
-        $this->setTextColor(0, 0, 0);
-
-        $this->multiCell(($this->documentWidth)*0.5 * 1/3, 5, $this->taxNumber);
+        $this->addInvoiceBoxEntry(3, $this->taxNumber, $this->words['Tax-Number']);
     }
 }

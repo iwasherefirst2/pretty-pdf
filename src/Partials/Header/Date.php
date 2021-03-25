@@ -3,9 +3,12 @@
 namespace BeautyBill\Partials\Header;
 
 use BeautyBill\Partials\Drawable;
+use BeautyBill\Traits\InvoiceBoxable;
 
 class Date extends Drawable
 {
+    use InvoiceBoxable;
+
     /**
      * @var int|null
      */
@@ -21,21 +24,7 @@ class Date extends Drawable
      */
     public function draw(): void
     {
-        $this->setFont('DejaVuSansCondensed', '', 11);
-
-        $this->setXY(($this->documentWidth) * 0.5, 75);
-
-        $this->setTextColor(40, 40, 40);
-
-        $this->cell(($this->documentWidth) * 0.5 * 1 / 3, 5, $this->words['Date'] . ':');
-
-        $this->setXY(($this->documentWidth) * 0.5, 80);
-
-        $this->setFont('DejaVuSansCondensed', 'B', 11);
-
-        $this->setTextColor(0, 0, 0);
-
-        $this->multiCell(($this->documentWidth) * 0.5 * 1 / 3, 5, $this->getDate());
+        $this->addInvoiceBoxEntry(1, $this->getDate(), $this->words['Date']);
     }
     
     private function getDate()
