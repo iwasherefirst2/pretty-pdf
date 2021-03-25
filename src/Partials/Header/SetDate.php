@@ -1,16 +1,17 @@
 <?php
 
-namespace BeautyBill\Parcials\Header;
+namespace BeautyBill\Partials\Header;
 
-use BeautyBill\Parcials\ParcialInterface;
+use BeautyBill\Partials\PartialInterface;
+use Closure;
 
-class SetDate implements ParcialInterface
+class SetDate implements PartialInterface
 {
     /**
      * Add infobox in the top right corner of invoice
      * @return Closure
      */
-    public static function getFunction(): \Closure
+    public static function getFunction(): Closure
     {
         return function (int $timestamp = null) {
             $this->SetFont('DejaVuSansCondensed', '', 11);

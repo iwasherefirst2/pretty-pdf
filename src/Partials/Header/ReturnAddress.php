@@ -1,8 +1,8 @@
 <?php
 
-namespace BeautyBill\Parcials\Header;
+namespace BeautyBill\Partials\Header;
 
-use BeautyBill\Parcials\ParcialInterface;
+use BeautyBill\Partials\ParcialInterface;
 
 class ReturnAddress implements ParcialInterface
 {

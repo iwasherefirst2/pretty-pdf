@@ -1,13 +1,15 @@
 <?php
 
-namespace BeautyBill\Parcials;
+namespace BeautyBill\Partials;
 
-interface ParcialInterface
+use Closure;
+
+interface PartialInterface
 {
     /**
      * Add dynamic function to PDF object.
      * Methodname is equal to interfacename
      * @return Closure
      */
-    public static function getFunction(): \Closure;
+    public static function getFunction(): Closure;
 }

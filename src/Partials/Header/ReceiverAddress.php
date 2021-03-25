@@ -1,16 +1,18 @@
 <?php
 
-namespace BeautyBill\Parcials\Header;
+namespace BeautyBill\Partials\Header;
 
-use BeautyBill\Parcials\ParcialInterface;
+use BeautyBill\Partials\PartialInterface;
+use BeautyBill\PDF;
+use Closure;
 
-class ReceiverAddress implements ParcialInterface
+class ReceiverAddress implements PartialInterface
 {
     /**
      * Add infobox in the top right corner of invoice
      * @return Closure
      */
-    public static function getFunction(): \Closure
+    public static function getFunction(): Closure
     {
         return function (array $address) {
             $this->SetTextColor(0, 0, 0);
@@ -29,7 +31,7 @@ class ReceiverAddress implements ParcialInterface
 
     public static function getLineHeight(array $address, int $width, int $margin)
     {
-        $pdf_dummy = new \BeautyBill\PDF();
+        $pdf_dummy = new PDF();
         $pdf_dummy->AddFont('DejaVuSansCondensed', '', 'DejaVuSansCondensed.ttf', true);
         $pdf_dummy->AddPage();
         $pdf_dummy->SetFont('DejaVuSansCondensed', '', 11);

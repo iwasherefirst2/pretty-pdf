@@ -1,16 +1,17 @@
 <?php
 
-namespace BeautyBill\Parcials\Finisher;
+namespace BeautyBill\Partials\Finisher;
 
-use BeautyBill\Parcials\ParcialInterface;
+use BeautyBill\Partials\PartialInterface;
+use Closure;
 
-class DrawHeaderLine implements ParcialInterface
+class DrawHeaderLine implements PartialInterface
 {
     /**
      * Draw line below logo and header infobox
      * @return Closure
      */
-    public static function getFunction(): \Closure
+    public static function getFunction(): Closure
     {
         return function () {
             $this->SetLineWidth(2);

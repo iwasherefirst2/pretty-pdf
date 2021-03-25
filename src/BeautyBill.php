@@ -7,7 +7,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 class BeautyBill
 {
-    use Traits\ParcialLoadable;
+    use Traits\PartialLoadable;
 
     private $pdf;
 
@@ -17,6 +17,14 @@ class BeautyBill
 
         $this->pdf = new PDF();
 
-        $this->addBasicParcials();
+        $this->addBasicPartials();
+    }
+
+    public function output()
+    {
+        $this->drawHeaderLine();
+        $this->invoiceHeadline();
+
+        return call_user_func_array([$this->pdf, 'output'], func_get_args());
     }
 }
