@@ -4,6 +4,7 @@ namespace PrettyPdf\Partials\Body;
 
 use PrettyPdf\Partials\Body\Data\PaymentInfo as PaymentInfoData;
 use PrettyPdf\Partials\Drawable;
+use PrettyPdf\PDF;
 
 class PaymentInfo extends Drawable
 {
@@ -19,26 +20,88 @@ class PaymentInfo extends Drawable
     
     public function draw(): void
     {
-        $this->setY($this->pdf->yPositionAfterTable + 25);
-
-        $this->SetFont('DejaVuSansCondensed', 'B', 12);
+        $this->setYCoordinateBelowTable();
         
-        $this->Cell(($this->w)*0.5 - $this->sideMargin, 7, $this->data->title, 0, 2, 'L');
-        $this->Line($this->GetX(), $this->GetY()+1, $this->GetX() + ($this->w)*0.5 - $this->sideMargin, $this->GetY()+1);
-        $this->SetFont('DejaVuSansCondensed', '', 10);
-        $this->setY($this->getY() +4);
+        $this->createTitle();
         
-        $this->MultiCell(($this->w)*0.5 - $this->sideMargin, 6, $this->data->description, 0, 'L');
+        $this->setPlainFontSize(10);
+        
+        $this->addDescription();
+        
         $this->ln();
-        $border = 0;
+        
+        $this->addTableRow($this->words['Name:'], $this->data->name);
+        $this->addTableRow($this->words['Bank:'], $this->data->bank);
+        $this->addTableRow($this->words['IBAN:'], $this->data->iban);
+        $this->addTableRow($this->words['BIC/SWIFT:'], $this->data->bic);
+    }
+    
+    private function setYCoordinateBelowTable(): void
+    {
+        $this->setY($this->pdf->yPositionAfterTable + 25);
+    }
+    
+    private function createTitle(): void
+    {
+        $this->setBoldFontSize(12);
+        
+        $cellWidth = $this->documentWidth*0.5 - $this->sideMargin;
+        $cellHeight = 7;
+        
+        $this->cell(
+            $cellWidth,
+            $cellHeight,
+            $this->data->title,
+            PDF::NO_BORDER,
+            PDF::MOVE_POSITION_BELOW,
+            PDF::ALIGN_LEFT
+        );
 
-        $this->Cell((($this->w)*0.5 - $this->sideMargin)* 1/4, 6, $this->words['Name:'], $border, 0, 'L');
-        $this->Cell((($this->w)*0.5 - $this->sideMargin)* 3/4, 6, $this->data->name, $border, 1, 'L');
-        $this->Cell((($this->w)*0.5 - $this->sideMargin)* 1/4, 6, $this->words['Bank:'], $border, 0, 'L');
-        $this->Cell((($this->w)*0.5 - $this->sideMargin)* 3/4, 6, $this->data->bank, $border, 1, 'L');
-        $this->Cell((($this->w)*0.5 - $this->sideMargin)* 1/4, 6, $this->words['IBAN:'], $border, 0, 'L');
-        $this->Cell((($this->w)*0.5 - $this->sideMargin)* 3/4, 6, $this->data->iban, $border, 1, 'L');
-        $this->Cell((($this->w)*0.5 - $this->sideMargin)* 1/4, 6, $this->words['BIC/SWIFT:'], $border, 0, 'L');
-        $this->Cell((($this->w)*0.5 - $this->sideMargin)* 3/4, 6, $this->data->bic, $border, 1, 'L');
+        $yPosition = $this->GetY()+1;
+        $this->line(
+            $this->GetX(),// Will be new line (Position Below) but with SideMargin
+            $yPosition,
+            $this->GetX() + ($this->documentWidth)*0.5 - $this->sideMargin,
+            $yPosition
+        );
+
+        $this->addTopMargin(4);
+    }
+    
+    private function addDescription(): void
+    {
+        $lineHeight = 6;
+        
+        $this->MultiCell(
+            $this->documentWidth*0.5 - $this->sideMargin,
+            $lineHeight,
+            $this->data->description,
+            PDF::NO_BORDER,
+            PDF::ALIGN_LEFT
+        );
+    }
+    
+    private function addTableRow(string $label, string $value): void
+    {
+        $halfDocumentWidht = $this->documentWidth*0.5 - $this->sideMargin;
+        $cellHeight = 6;
+        
+        $this->cell(
+            $halfDocumentWidht* 1/4,
+            $cellHeight,
+            $label,
+            PDF::NO_BORDER,
+            PDF::MOVE_POSITION_TO_THE_RIGHT,
+            PDF::ALIGN_LEFT
+        );
+        
+        $this->cell(
+            $halfDocumentWidht * 3/4,
+            $cellHeight,
+            $value,
+            PDF::NO_BORDER,
+            PDF::MOVE_POSITION_TO_NEXT_LINE,
+            PDF::ALIGN_LEFT
+        );
     }
 }

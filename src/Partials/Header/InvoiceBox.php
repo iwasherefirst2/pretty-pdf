@@ -12,10 +12,17 @@ class InvoiceBox extends Drawable
     private $data;
     
     private $position = 0;
-    
-    public function set(array $data)
+
+    /**
+     * @var string|null
+     */
+    private $headline;
+
+    public function set(array $data, $headline = null)
     {
         $this->data = $data;
+        
+        $this->headline = $headline;
     }
     
     public function draw(): void
@@ -31,7 +38,7 @@ class InvoiceBox extends Drawable
     {
         $this->setFont('DejaVuSansCondensed', '', 38);
         $this->setXY(($this->documentWidth) * 0.5, 55);
-        $this->cell(100, 10, strtoupper($this->words['Invoice']), 0, 1);
+        $this->cell(100, 10, strtoupper($this->headline ?? $this->words['Invoice']), 0, 1);
     }
 
     private function addInvoiceBoxEntry(string $label, string $value)
