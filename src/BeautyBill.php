@@ -26,9 +26,6 @@ class BeautyBill
     
     public function output()
     {
-        $this->headerLine();
-        $this->invoiceHeadline();
-        
         return call_user_func_array([$this->pdf, 'output'], func_get_args());
     }
 

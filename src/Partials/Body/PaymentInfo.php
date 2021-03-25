@@ -2,12 +2,13 @@
 
 namespace BeautyBill\Partials\Body;
 
+use BeautyBill\Partials\Body\Data\PaymentInfo as PaymentInfoData;
 use BeautyBill\Partials\Drawable;
 
 class PaymentInfo extends Drawable
 {
     /**
-     * @var PaymentInfoData
+     * @var PaymentInfo
      */
     private $data;
 

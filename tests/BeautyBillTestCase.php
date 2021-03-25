@@ -3,6 +3,8 @@
 namespace Tests;
 
 use BeautyBill\BeautyBill;
+use BeautyBill\Partials\Body\Data\Item;
+use BeautyBill\Partials\Body\Data\PaymentInfo;
 use PHPUnit\Framework\TestCase;
 
 class BeautyBillTestCase extends TestCase
@@ -13,6 +15,32 @@ class BeautyBillTestCase extends TestCase
      * var BeautyBill
      */
     protected $bill;
+
+    protected function getItemData()
+    {
+        $item = new Item();
+
+        $item->description = 'A new currency';
+        $item->quantity = 5;
+        $item->name = 'Bitcoin';
+        $item->unitPrice = 2031.23;
+
+        return $item;
+    }
+
+    protected function getPaymentInfo()
+    {
+        $paymentInfoDate = new PaymentInfo();
+
+        $paymentInfoDate->title = 'A really good title';
+        $paymentInfoDate->description = 'A long description comes in here';
+        $paymentInfoDate->bank = 'ING';
+        $paymentInfoDate->bic = 'BICXXX';
+        $paymentInfoDate->iban = 'DE42 4242 4242 4242 4242 24';
+        $paymentInfoDate->name = 'Beauty Bill Creator';
+
+        return $paymentInfoDate;
+    }
 
     public function setUp(): void
     {
@@ -37,7 +65,7 @@ class BeautyBillTestCase extends TestCase
         $content = $this->bill->output('s');
         
         $pdfContent = file_get_contents(__DIR__ . '/files/' . $filename);
-   
+        
         $assertedImagick = new \Imagick();
         $assertedImagick->readImageBlob($pdfContent);
         $assertedImagick->resetIterator();

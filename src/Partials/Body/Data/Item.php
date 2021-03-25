@@ -1,8 +1,8 @@
 <?php
 
-namespace BeautyBill\Partials\Body;
+namespace BeautyBill\Partials\Body\Data;
 
-class ItemData
+class Item
 {
     /**
      * @var string
