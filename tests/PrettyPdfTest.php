@@ -2,27 +2,41 @@
 
 namespace Tests;
 
+use PrettyPdf\Partials\Invoice\Data\Item;
+
 class PrettyPdfTest extends PrettyPdfTestCase
 {
     public function test_complete_document()
     {
-        //$this->storeOnly = true;
+        $this->storeOnly = true;
 
-        $data2 = $this->getItemData();
+        $item = new Item();
 
-        $data2->unitPrice = 100;
-        $data2->quantity = 12;
+        $item->description = 'A new currency';
+        $item->quantity = 5;
+        $item->name = 'Bitcoin';
+        $item->unitPrice = 2031.23;
 
-        $data3 = $this->getItemData();
-        $data3->unitPrice = 15;
-        $data3->quantity = 5;
+        $item2 = new Item();
+
+        $item2->description = 'Healthy Stuff';
+        $item2->quantity = 3;
+        $item2->name = 'Tomatos';
+        $item2->unitPrice = 0.5;
+
+        $item3 = new Item();
+
+        $item3->description = 'You are welcome to join-';
+        $item3->quantity = 12;
+        $item3->name = 'Membership';
+        $item3->unitPrice = 100;
 
         $this->prettyPdf->logo(__DIR__ . '/files/logo.png')
             ->headerInfoBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
             ->returnAddress('Dr. Schwadam, Schwinterfeldschraße 99, 10777 Berlin, Germany')
             ->receiverAddress(['Max Mustermann', 'Colorado Hippo Zoo', '5225 Figueroa Mountain Rd', 'Los Olivos', 'CA 93441', 'United States'])
             ->invoiceBox(['Date' => 'Today', 'Invoice' => 'I 2020-03-22', 'Tax-Number' => '18/455/12345'])
-            ->items([$this->getItemData(), $data2, $data3], 19)
+            ->items([$item, $item2, $item3], 19)
             ->paymentInfo($this->getPaymentInfo())
             ->additionalNote('Optioanl note. Nothing important here.');
 

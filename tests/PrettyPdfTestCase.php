@@ -2,10 +2,10 @@
 
 namespace Tests;
 
-use PrettyPdf\PrettyPdf;
+use PHPUnit\Framework\TestCase;
 use PrettyPdf\Partials\Invoice\Data\Item;
 use PrettyPdf\Partials\Invoice\Data\PaymentInfo;
-use PHPUnit\Framework\TestCase;
+use PrettyPdf\PrettyPdf;
 
 class PrettyPdfTestCase extends TestCase
 {
