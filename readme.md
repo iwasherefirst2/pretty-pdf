@@ -1,6 +1,13 @@
 # PrettyPdf
 
-This package is build on tFPDF, i.e. it supports also UTF8.
+This package helps you to create invoices and letters. Its especialy made for A4 format that fits your envelope window. UTF8 is also supported.
+
+The invoice looks like this:
+![image](https://user-images.githubusercontent.com/1765602/112662390-ed54f900-8e57-11eb-905f-957982939b81.png)
+
+Each section of the invoice relates to a method:
+![image](https://user-images.githubusercontent.com/1765602/112663289-f0041e00-8e58-11eb-81cd-2826b0780f4b.png)
+
 
 
 ## Example
@@ -55,7 +62,7 @@ In addition, the following functions are available:
 | setLocalizationPath(/full/path/)      |    Full path to your custom localization files, if you don't want to use the repositorie ones.  |
 | logo(/full/path/logo.png) | Adds the logo to your pdf to the top left corner.  |
 | receiverAdress(['Max Musterman', 'Victoria Luise Platz 97', '10777 Berlin', 'Germany') | Address of document. Height will be adjustet so that it fits on the envelope. Each entry of the array has its own line.  |
-| returnAddress(['Max Musterman', 'Victoria Luise Platz 97', '10777 Berlin', 'Germany') |Return address. Will be written as single line above address. |
+| returnAddress('My home address, Germany 121212') |Return address. Will be written as single line above address. |
 | invoiceBox(['Date' => 'Today', 'Invoice' => 'I 2020-03-22', 'Tax-Number' => '18/455/12345']) | Will add a little box with heading "Invoice" right from the address.|
 | headerInfoBox(['Max Mastermind', 'Your Adress', 'New York']) | Your address in the top right corner. |
 | items([$itemA, $itemB, $itemC], $vat) | Receives an array (or any iterable object) of `\BeautyBill\Partials\Body\Data\Item` objects and the VAT in percent. For example, in Germany we have 19% VAT, so 19 has to be passed as a parameter. Each represents a row of your invoice |
