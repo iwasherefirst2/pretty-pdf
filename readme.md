@@ -1,9 +1,16 @@
 # PrettyPdf
 
-This package helps you to create invoices and letters. Its especialy made for A4 format that fits your envelope window. UTF8 is also supported.
+This package helps you to create invoices and letters. UTF8 is also supported.
 
 The invoice looks like this:
 ![image](https://user-images.githubusercontent.com/1765602/112662390-ed54f900-8e57-11eb-905f-957982939b81.png)
+
+The best thing about this package is that the invoices look absolutly fantastic and in addition, the address of your letter/invoice fully fits your envelope window! 
+
+mtp://%5Busb%3A003,021%5D/Phone/DCIM/Camera/20210326_173723.jpg
+
+The default format is A4. If you need a different format, just the FPDF standard methods.
+
 
 Each section of the invoice relates to a method:
 ![image](https://user-images.githubusercontent.com/1765602/112663289-f0041e00-8e58-11eb-81cd-2826b0780f4b.png)
@@ -68,6 +75,10 @@ In addition, the following functions are available:
 | items([$itemA, $itemB, $itemC], $vat) | Receives an array (or any iterable object) of `\BeautyBill\Partials\Body\Data\Item` objects and the VAT in percent. For example, in Germany we have 19% VAT, so 19 has to be passed as a parameter. Each represents a row of your invoice |
 | paymentInfo($paymentInfoData) |  Receives an object of `\BeautyBill\Partials\Body\Data\PaymentInfo`. This will create an info how to pay on the lower left side. | 
 | additionalNote(string $text) | Showes a note for special rules that apply to invoice. Note appears on the lower right side. | 
+| date(string $text) |Adds a date to the left side, usefull for letters. If no argument is passed, show current date|
+| foldMarker() |Add a mark where to fold the letter| 
+| tableBox(string $title, array $rows) |Add a headline and a tablein the top right corner|
+| text(string $text) | A text. This is when you want to use this class for a letter. Use "\n" in your string for returns |
 
 ## How can I add my own styling?
 
