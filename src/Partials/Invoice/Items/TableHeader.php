@@ -55,7 +55,7 @@ class TableHeader
         $this->cellBuilder->create(
             strtoupper($this->words['Total']),
             null,
-            Cell::MOVE_POSITION_TO_NEXT_LINE_START_AT_BOX
+            Cell::MOVE_POSITION_TO_NEXT_LINE_START_AT_SIDEMARGIN
         );
 
         $this->cellBuilder->resetToDefault();

@@ -2,6 +2,12 @@
 
 namespace PrettyPdf;
 
+/**
+ * Class PrettyPdf
+ * @package PrettyPdf
+ *
+ * @method TableBox(string $title, array $rows)
+ */
 class PrettyPdf
 {
     /**

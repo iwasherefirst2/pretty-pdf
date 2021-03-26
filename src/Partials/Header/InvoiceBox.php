@@ -44,7 +44,7 @@ class InvoiceBox extends Drawable
             $height = 10,
             strtoupper($this->headline ?? $this->words['Invoice']),
             Cell::NO_BORDER,
-            Cell::MOVE_POSITION_TO_NEXT_LINE_START_AT_BOX
+            Cell::MOVE_POSITION_TO_NEXT_LINE_START_AT_SIDEMARGIN
         );
     }
 

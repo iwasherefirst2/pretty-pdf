@@ -38,7 +38,7 @@ class ReturnAddress extends Drawable
             $height = 10,
             $this->address,
             Cell::NO_BORDER,
-            CELL::MOVE_POSITION_TO_NEXT_LINE_START_AT_BOX
+            CELL::MOVE_POSITION_TO_NEXT_LINE_START_AT_SIDEMARGIN
         );
     }
 }

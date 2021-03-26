@@ -21,7 +21,7 @@ class PaymentInfo extends Drawable
     public function draw(): void
     {
         $this->cellBuilder->width       = $this->halfContentWidth - 5;
-        $this->cellBuilder->newPosition = Cell::MOVE_POSITION_TO_NEXT_LINE_START_AT_BOX;
+        $this->cellBuilder->newPosition = Cell::MOVE_POSITION_TO_NEXT_LINE_START_AT_SIDEMARGIN;
 
         $this->setYCoordinateBelowTable();
         
@@ -85,7 +85,7 @@ class PaymentInfo extends Drawable
         $this->cellBuilder->create(
             $value,
             $this->cellBuilder->width * 3/4,
-            Cell::MOVE_POSITION_TO_NEXT_LINE_START_AT_BOX
+            Cell::MOVE_POSITION_TO_NEXT_LINE_START_AT_SIDEMARGIN
         );
     }
 }

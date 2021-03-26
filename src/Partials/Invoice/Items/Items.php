@@ -136,7 +136,7 @@ class Items extends Drawable
         $this->cellBuilder->width = $this->documentWidth*0.5*1/3;
         $this->cellBuilder->align = Cell::ALIGN_RIGHT;
         $this->cellBuilder->height = 8;
-        $this->cellBuilder->newPosition = Cell::MOVE_POSITION_TO_NEXT_LINE_START_AT_SIDEMARGIN;
+        $this->cellBuilder->newPosition = Cell::MOVE_POSITION_TO_NEXT_LINE_START_AT_PREVIOUS_CELL;
 
         $this->setBoldFontSize(11);
         $this->cellBuilder->create($this->words['Gross amount']);

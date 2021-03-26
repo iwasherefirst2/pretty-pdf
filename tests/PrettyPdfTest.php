@@ -17,7 +17,7 @@ class PrettyPdfTest extends PrettyPdfTestCase
         $data3->unitPrice = 15;
         $data3->quantity = 5;
 
-        $this->bill->logo(__DIR__ . '/files/logo.png')
+        $this->prettyPdf->logo(__DIR__ . '/files/logo.png')
             ->headerInfoBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
             ->returnAddress('Dr. Schwadam, Schwinterfeldschraße 99, 10777 Berlin, Germany')
             ->receiverAddress(['Max Mustermann', 'Colorado Hippo Zoo', '5225 Figueroa Mountain Rd', 'Los Olivos', 'CA 93441', 'United States'])
@@ -33,7 +33,7 @@ class PrettyPdfTest extends PrettyPdfTestCase
     {
         $this->expectException(\Exception::class);
 
-        $this->bill->addCustomPartials([\Tests\Logo::class]);
+        $this->prettyPdf->addCustomPartials([\Tests\Logo::class]);
     }
 }
 

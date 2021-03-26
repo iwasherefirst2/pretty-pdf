@@ -2,13 +2,13 @@
 
 namespace Tests;
 
-class BodyTest extends PrettyPdfTestCase
+class InvoiceTest extends PrettyPdfTestCase
 {
     public function test_body_basic_net()
     {
         //$this->storeOnly = true;
         
-        $this->bill->items([$this->getItemData()]);
+        $this->prettyPdf->items([$this->getItemData()]);
         
         $this->assertEqualPDFs('NetAmount.pdf');
     }
@@ -17,7 +17,7 @@ class BodyTest extends PrettyPdfTestCase
     {
         //$this->storeOnly = true;
 
-        $this->bill->items([$this->getItemData()], 19);
+        $this->prettyPdf->items([$this->getItemData()], 19);
 
         $this->assertEqualPDFs('GrossAmount.pdf');
     }
@@ -26,11 +26,11 @@ class BodyTest extends PrettyPdfTestCase
     {
         //$this->storeOnly = true;
         
-        $this->bill->items([$this->getItemData()], 19);
+        $this->prettyPdf->items([$this->getItemData()], 19);
         
-        $this->bill->paymentInfo($this->getPaymentInfo());
+        $this->prettyPdf->paymentInfo($this->getPaymentInfo());
         
-        $this->bill->additionalNote('Optioanl note. Nothing important here.');
+        $this->prettyPdf->additionalNote('Optioanl note. Nothing important here.');
 
         $this->assertEqualPDFs('PaymountAmount.pdf');
     }

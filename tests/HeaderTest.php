@@ -10,14 +10,14 @@ class HeaderTestCase extends PrettyPdfTestCase
     {
         parent::setUp();
 
-        $this->bill = new PrettyPdf();
+        $this->prettyPdf = new PrettyPdf();
     }
 
     public function test_header_basic()
     {
         //$this->storeOnly = true;
 
-        $this->bill->logo(__DIR__ . '/files/logo.png')
+        $this->prettyPdf->logo(__DIR__ . '/files/logo.png')
              ->headerInfoBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
              ->returnAddress('Dr. Schwadam, Schwinterfeldschraße 99, 10777 Berlin, Germany')
              ->receiverAddress(['Michael Jackson', 'Colorado Hippo Zoo', '5225 Figueroa Mountain Rd', 'Los Olivos', 'CA 93441', 'United States']);
@@ -29,7 +29,7 @@ class HeaderTestCase extends PrettyPdfTestCase
     {
         //$this->storeOnly = true;
         
-        $this->bill->logo(__DIR__ . '/files/logo.png')
+        $this->prettyPdf->logo(__DIR__ . '/files/logo.png')
              ->headerInfoBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
              ->returnAddress('Dr. Schwadam, Schwinterfeldschraße 99, 10777 Berlin, Germany')
              ->receiverAddress(['Michael Jackson', 'Colorado Hippo Zoo', '5225 Figueroa Mountain Rd', 'Los Olivos', 'CA 93441', 'United States'])
