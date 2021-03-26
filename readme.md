@@ -6,8 +6,7 @@ The invoice looks like this:
 ![image](https://user-images.githubusercontent.com/1765602/112662390-ed54f900-8e57-11eb-905f-957982939b81.png)
 
 The best thing about this package is that the invoices look absolutly fantastic and in addition, the address of your letter/invoice fully fits your envelope window! 
-
-mtp://%5Busb%3A003,021%5D/Phone/DCIM/Camera/20210326_173723.jpg
+![20210326_173723](https://user-images.githubusercontent.com/1765602/112665009-e11e6b00-8e5a-11eb-8035-ba053b6ec169.jpg)
 
 The default format is A4. If you need a different format, just the FPDF standard methods.
 
