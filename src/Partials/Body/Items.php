@@ -123,7 +123,7 @@ class Items extends Drawable
         $this->SetTextColor(255, 255, 255);
         $this->SetFillColor(0, 136, 204);
         $this->SetXY($x, $y);
-        $this->Rect($x, $y, $this->documentWidth * 0.5*(1/3)* 2 + ($this->documentWidth * 0.5* 1/9), 8, 'F');
+        $this->Rect($this->documentWidth *0.5 + $this->sideMargin, $y, $this->documentWidth * 0.5 - $this->sideMargin, 8, 'F');
         $this->Cell($this->documentWidth*0.5*1/3, 8, $labelTotal, 0, 0, 'R');
         $this->Cell($this->documentWidth*0.5*1/3, 8, $betrag, 0, 1, 'R');
         $this->SetTextColor(0, 0, 0);

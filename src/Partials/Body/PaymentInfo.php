@@ -8,6 +8,8 @@ use PrettyPdf\PDF;
 
 class PaymentInfo extends Drawable
 {
+    private $cellWidth;
+
     /**
      * @var PaymentInfo
      */
@@ -20,6 +22,8 @@ class PaymentInfo extends Drawable
     
     public function draw(): void
     {
+        $this->cellWidth = $this->documentWidth*0.5 - $this->sideMargin - 5;
+
         $this->setYCoordinateBelowTable();
         
         $this->createTitle();
@@ -45,11 +49,11 @@ class PaymentInfo extends Drawable
     {
         $this->setBoldFontSize(12);
         
-        $cellWidth = $this->documentWidth*0.5 - $this->sideMargin;
+
         $cellHeight = 7;
         
         $this->cell(
-            $cellWidth,
+            $this->cellWidth,
             $cellHeight,
             $this->data->title,
             PDF::NO_BORDER,
@@ -61,7 +65,7 @@ class PaymentInfo extends Drawable
         $this->line(
             $this->GetX(),// Will be new line (Position Below) but with SideMargin
             $yPosition,
-            $this->GetX() + ($this->documentWidth)*0.5 - $this->sideMargin,
+            $this->GetX() + $this->cellWidth,
             $yPosition
         );
 
@@ -73,7 +77,7 @@ class PaymentInfo extends Drawable
         $lineHeight = 6;
         
         $this->MultiCell(
-            $this->documentWidth*0.5 - $this->sideMargin,
+            $this->cellWidth,
             $lineHeight,
             $this->data->description,
             PDF::NO_BORDER,
@@ -83,11 +87,10 @@ class PaymentInfo extends Drawable
     
     private function addTableRow(string $label, string $value): void
     {
-        $halfDocumentWidht = $this->documentWidth*0.5 - $this->sideMargin;
         $cellHeight = 6;
         
         $this->cell(
-            $halfDocumentWidht* 1/4,
+            $this->cellWidth* 1/4,
             $cellHeight,
             $label,
             PDF::NO_BORDER,
@@ -96,7 +99,7 @@ class PaymentInfo extends Drawable
         );
         
         $this->cell(
-            $halfDocumentWidht * 3/4,
+            $this->cellWidth * 3/4,
             $cellHeight,
             $value,
             PDF::NO_BORDER,

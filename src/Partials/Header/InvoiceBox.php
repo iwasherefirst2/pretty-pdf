@@ -37,7 +37,7 @@ class InvoiceBox extends Drawable
     private function addInvoiceHeadline()
     {
         $this->setFont('DejaVuSansCondensed', '', 38);
-        $this->setXY(($this->documentWidth) * 0.5, 55);
+        $this->setXY(($this->documentWidth) * 0.5 +5, 55);
         $this->cell(100, 10, strtoupper($this->headline ?? $this->words['Invoice']), 0, 1);
     }
 
@@ -53,14 +53,15 @@ class InvoiceBox extends Drawable
         
         $this->SetFont('DejaVuSansCondensed', '', 11);
 
-        $x_pos = ($this->documentWidth) * 0.5 * (1 + ($this->position)/$columns);
+        $startPos = $this->documentWidth * 0.5 +5 ;
+        $x_pos = $startPos + $this->position/$columns * ($this->documentWidth* 0.5-15);
         $this->position++;
 
         $this->setXY($x_pos, 75);
 
         $this->setTextColor(40, 40, 40);
 
-        $this->cell(($this->documentWidth)*0.5 * 1/3, 5, $label . ':');
+        $this->cell(($this->documentWidth*0.5-15) * 1/3, 5, $label . ':');
 
         $this->setXY($x_pos, 80);
 
@@ -68,7 +69,7 @@ class InvoiceBox extends Drawable
 
         $this->setTextColor(0, 0, 0);
 
-        $this->multiCell(($this->documentWidth)*0.5 * 1/3, 5, $value);
+        $this->multiCell(($this->documentWidth*0.5-15) * 1/3, 5, $value);
     }
 
     private function getDate()

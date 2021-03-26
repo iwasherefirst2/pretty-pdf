@@ -39,8 +39,8 @@ class HeaderInfoBox extends Drawable
     {
         $this->setFont('DejaVuSansCondensed', '', $this->fontHeight);
         $text = implode("\n", $this->infos);
-        $this->setX($this->documentWidth - $this->sideMargin - $this->topInfoBoxWidth);
-        $this->multiCell($this->topInfoBoxWidth, 4, $text, '0', 'R');
+        $this->setX($this->documentWidth - 10  - $this->topInfoBoxWidth);
+        $this->multiCell($this->topInfoBoxWidth, 4, $text, 0,  'R');
         
         $this->addHeaderLine();
     }

@@ -23,12 +23,12 @@ class AdditionalNote extends Drawable
         $this->SetFont('DejaVuSansCondensed', 'B', 12);
         
         $this->SetXY(($this->w)*0.5 + $this->sideMargin, $y + 10);
-        $this->MultiCell(($this->w)*0.5 - 2* $this->sideMargin, 7, $this->words['Note'], 0, 'L');
-        $this->Line(($this->w)*0.5 + $this->sideMargin, $this->GetY()+1, ($this->w)*0.5 + ($this->w)*0.5 - $this->sideMargin, $this->GetY()+1);
+        $this->MultiCell(($this->w)*0.5 - ($this->sideMargin +10), 7, $this->words['Note'], 0, 'L');
+        $this->Line(($this->w)*0.5 + $this->sideMargin, $this->GetY()+1, $this->w - 10, $this->GetY()+1);
         $this->SetFont('DejaVuSansCondensed', '', 10);
         $this->SetXY(($this->w)*0.5+ $this->sideMargin, $this->getY()+ 5);
       
-        $this->MultiCell(($this->w)*0.5 - 2*$this->sideMargin, 6, $this->description, 0, 'L');
+        $this->MultiCell(($this->w)*0.5 - ($this->sideMargin +10), 6, $this->description, 0, 'L');
         $this->SetY($y);
     }
 }
