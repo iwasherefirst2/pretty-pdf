@@ -1,6 +1,6 @@
 # PrettyPdf
 
-This package helps you to create invoices and letters. UTF8 is also supported.
+This package helps you to create invoices and letters with PHP with UTF8 support. 
 
 The invoice looks like this:
 ![image](https://user-images.githubusercontent.com/1765602/112662390-ed54f900-8e57-11eb-905f-957982939b81.png)
