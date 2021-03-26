@@ -70,20 +70,20 @@ class Items extends Drawable
         $this->Cell($this->documentWidth * 0.5, 3, '', 1, 2);
         $this->Cell($this->leftMargin, 5, '', 1, 0);
         $this->SetFont('DejaVuSansCondensed', 'B', 9);
-        $this->Cell(($this->w)*0.5 - $this->leftMargin, 5, $item->name, 1, 2);
+        $this->Cell(($this->documentWidth)*0.5 - $this->leftMargin, 5, $item->name, 1, 2);
         $this->SetFont('DejaVuSansCondensed', '', 8);
-        $this->MultiCell(($this->w)*0.5 -  $this->leftMargin, 4, $item->description, 0, 'L');
+        $this->MultiCell(($this->documentWidth)*0.5 -  $this->leftMargin, 4, $item->description, 0, 'L');
         $this->Cell($this->w * 0.5 - $this->leftMargin, 3, '', 0, 0);
 
         $this->SetY($yOld);
         $this->SetX($this->w * 0.5);
         $this->SetFont('DejaVuSansCondensed', '', 9);
-        $this->Cell($this->w * 0.5* 1/3, $y-$yOld, $this->round($item->getPrice()), 0, 0, 'C');
-        $this->Cell($this->w * 0.5* 1/3, $y-$yOld, $item->quantity, 0, 0, 'C');
-        $this->Cell($this->w * 0.5* 1/3 * 2/3, $y-$yOld, $this->round($item->quantity * $item->getPrice()), 0, 1, 'R');
+        $this->Cell($this->documentWidth * 0.5* 1/3, $y-$yOld, $this->round($item->getPrice()), 0, 0, 'C');
+        $this->Cell($this->documentWidth * 0.5* 1/3, $y-$yOld, $item->quantity, 0, 0, 'C');
+        $this->Cell($this->documentWidth * 0.5* 1/3 * 2/3, $y-$yOld, $this->round($item->quantity * $item->getPrice()), 0, 1, 'R');
         $this->SetFillColor(150, 150, 150);
         $this->SetX(0);
-        $this->Cell($this->w, 0.3, '', 1, 1, '', 1);
+        $this->Cell($this->documentWidth, 0.3, '', 1, 1, '', 1);
     }
 
     private function round($number): string
