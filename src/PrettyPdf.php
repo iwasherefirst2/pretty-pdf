@@ -21,7 +21,7 @@ class PrettyPdf
         $localClass = new \ReflectionClass($this);
         $localMethods = $localClass->getMethods(\ReflectionMethod::IS_PUBLIC);
         
-        $this->loader = new Loader($localMethods);
+        $this->loader = new Loader($localMethods, $this->pdf);
     }
     
     public function output()

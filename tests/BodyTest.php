@@ -32,6 +32,6 @@ class BodyTest extends PrettyPdfTestCase
         
         $this->bill->additionalNote('Optioanl note. Nothing important here.');
 
-        $this->assertEqualPDFs('PaymountAmount.pdf');
+        $this->assertEqualPDFs('PaymountAmountTest.pdf');
     }
 }

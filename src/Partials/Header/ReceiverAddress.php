@@ -7,6 +7,8 @@ use PrettyPdf\PDF;
 
 class ReceiverAddress extends Drawable
 {
+    private $cellWidth;
+
     /**
      * @var array
      */
@@ -26,12 +28,16 @@ class ReceiverAddress extends Drawable
 
         $this->SetFont('DejaVuSansCondensed', '', 11);
 
-        $this->SetXY($this->sideMargin, 61);
+        $this->SetXY($this->leftMargin, 61);
+
+        $this->cellWidth = $this->documentWidth*0.5 - $this->leftMargin;
+
+
 
         $height = $this->getLineHeight();
         
-        foreach ($this->address as $line) {
-            $this->MultiCell(($this->documentWidth)*0.5 - $this->sideMargin, $height, $line);
+        foreach ($this->address as $text) {
+            $this->MultiCell($this->cellWidth, $height, $text);
         }
     }
 
@@ -49,8 +55,8 @@ class ReceiverAddress extends Drawable
             $pdf_dummy->SetFont('DejaVuSansCondensed', '', 9);
         }
 
-        foreach ($this->address as $line) {
-            $pdf_dummy->MultiCell(($this->documentWidth)*0.5 - $this->sideMargin, 5, $line, 1, 'L');
+        foreach ($this->address as $text) {
+            $pdf_dummy->MultiCell($this->cellWidth, 5, $text, 1, 'L');
         }
 
         $num_rows = $pdf_dummy->getY()/5;

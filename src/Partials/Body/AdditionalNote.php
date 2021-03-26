@@ -11,6 +11,16 @@ class AdditionalNote extends Drawable
      */
     private $description;
 
+    /**
+     * @var float
+     */
+    private $xStartPosition;
+
+    /**
+     * @var float
+     */
+    private $noteWidht;
+
     public function set(string $description)
     {
         $this->description = $description;
@@ -18,17 +28,34 @@ class AdditionalNote extends Drawable
     
     public function draw(): void
     {
-        $y = $this->pdf->yPositionAfterTotalAmount;
-        
-        $this->SetFont('DejaVuSansCondensed', 'B', 12);
-        
-        $this->SetXY(($this->w)*0.5 + $this->sideMargin, $y + 10);
-        $this->MultiCell(($this->w)*0.5 - ($this->sideMargin +10), 7, $this->words['Note'], 0, 'L');
-        $this->Line(($this->w)*0.5 + $this->sideMargin, $this->GetY()+1, $this->w - 10, $this->GetY()+1);
-        $this->SetFont('DejaVuSansCondensed', '', 10);
-        $this->SetXY(($this->w)*0.5+ $this->sideMargin, $this->getY()+ 5);
-      
-        $this->MultiCell(($this->w)*0.5 - ($this->sideMargin +10), 6, $this->description, 0, 'L');
-        $this->SetY($y);
+        $this->xStartPosition = $this->documentWidth * 0.5 + $this->leftMargin;
+        $this->noteWidht      = $this->halfContentWidth - $this->rightMargin;
+
+        $this->createTitle();
+
+        $this->createSeperatorLine();
+
+        $this->createDescriptionText();
+    }
+
+    private function createTitle()
+    {
+        $yStartPosition = $this->pdf->yPositionAfterTotalAmount + 10;
+
+        $this->SetXY($this->xStartPosition, $yStartPosition);
+        $this->setBoldFontSize(12);
+        $this->MultiCell($this->noteWidht, 7, $this->words['Note']);
+    }
+
+    private function createSeperatorLine()
+    {
+        $this->Line($this->xStartPosition, $this->GetY()+1, $this->documentWidth - $this->rightMargin, $this->GetY()+1);
+    }
+
+    private function createDescriptionText()
+    {
+        $this->SetXY($this->xStartPosition, $this->getY()+ 5);
+        $this->setPlainFontSize(10);
+        $this->MultiCell($this->noteWidht, 6, $this->description);
     }
 }

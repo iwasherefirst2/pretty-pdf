@@ -3,6 +3,7 @@
 namespace PrettyPdf;
 
 use Exception;
+use PrettyPdf\Builder\Cell;
 
 /**
  * Class Loader
@@ -27,8 +28,20 @@ class Loader
      */
     private $blockedMethods;
 
-    public function __construct($localMethods)
+    /**
+     * @var PDF
+     */
+    private $pdf;
+
+    /**
+     * Loader constructor.
+     * @param $localMethods
+     * @param PDF $pdf
+     */
+    public function __construct($localMethods, PDF $pdf)
     {
+        $this->pdf = $pdf;
+
         $this->allowOverwrite = false;
 
         $this->methods = [];
@@ -51,7 +64,9 @@ class Loader
 
         $class    = $this->methods[$name];
 
-        return new $class();
+        $cellBuilder = new Cell($this->pdf);
+
+        return new $class($cellBuilder);
     }
 
     /**

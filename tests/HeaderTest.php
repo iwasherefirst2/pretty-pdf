@@ -16,7 +16,7 @@ class HeaderTestCase extends PrettyPdfTestCase
     public function test_header_basic()
     {
         //$this->storeOnly = true;
-        
+
         $this->bill->logo(__DIR__ . '/files/logo.png')
              ->headerInfoBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
              ->returnAddress('Dr. Schwadam, Schwinterfeldschraße 99, 10777 Berlin, Germany')

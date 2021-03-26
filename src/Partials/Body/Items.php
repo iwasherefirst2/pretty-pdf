@@ -51,8 +51,8 @@ class Items extends Drawable
         $this->setDrawColor(0, 0, 0);
         $this->setTextColor(255, 255, 255);
         $this->setFont('DejaVuSansCondensed', 'B', 10);
-        $this->setXY($this->sideMargin, 106);
-        $this->cell(($this->documentWidth)*0.5 - $this->sideMargin, $this->barWidth, strtoupper($this->words['Item Description']));
+        $this->setXY($this->leftMargin, 106);
+        $this->cell(($this->documentWidth)*0.5 - $this->leftMargin, $this->barWidth, strtoupper($this->words['Item Description']));
         $this->cell(($this->documentWidth)*0.5*1/3, $this->barWidth, strtoupper($this->words['Unit Price']), 0, 0, 'C');
         $this->cell(($this->documentWidth)*0.5*1/3, $this->barWidth, strtoupper($this->words['Quantity']), 0, 0, 'C');
         $this->cell(($this->documentWidth)*0.5*1/3, $this->barWidth, strtoupper($this->words['Total']), 0, 1, 'C');
@@ -67,12 +67,12 @@ class Items extends Drawable
         $this->SetX(0);
         $yOld = $this->getY();
         $this->Cell($this->w * 0.5, 3, '', 1, 2, '', 1);
-        $this->Cell($this->sideMargin, 5, '', 1, 0);
+        $this->Cell($this->leftMargin, 5, '', 1, 0);
         $this->SetFont('DejaVuSansCondensed', 'B', 9);
-        $this->Cell(($this->w)*0.5 - $this->sideMargin, 5, $item->name, 1, 2);
+        $this->Cell(($this->w)*0.5 - $this->leftMargin, 5, $item->name, 1, 2);
         $this->SetFont('DejaVuSansCondensed', '', 8);
-        $this->MultiCell(($this->w)*0.5 - $this->sideMargin, 4, $item->description, 0, 'L');
-        $this->Cell($this->w * 0.5 - $this->sideMargin, 3, '', 1, 2, '', 1);
+        $this->MultiCell(($this->w)*0.5 - $this->leftMargin, 4, $item->description, 0, 'L');
+        $this->Cell($this->w * 0.5 - $this->leftMargin, 3, '', 1, 2, '', 1);
 
         $x = $this->GetX();
         $y = $this->GetY();
@@ -82,12 +82,12 @@ class Items extends Drawable
         $this->SetX(0);
 
         $this->Cell($this->w * 0.5, 3, '', 1, 2);
-        $this->Cell($this->sideMargin, 5, '', 1, 0);
+        $this->Cell($this->leftMargin, 5, '', 1, 0);
         $this->SetFont('DejaVuSansCondensed', 'B', 9);
-        $this->Cell(($this->w)*0.5 - $this->sideMargin, 5, $item->name, 1, 2);
+        $this->Cell(($this->w)*0.5 - $this->leftMargin, 5, $item->name, 1, 2);
         $this->SetFont('DejaVuSansCondensed', '', 8);
-        $this->MultiCell(($this->w)*0.5 -  $this->sideMargin, 4, $item->description, 0, 'L');
-        $this->Cell($this->w * 0.5 - $this->sideMargin, 3, '', 0, 0);
+        $this->MultiCell(($this->w)*0.5 -  $this->leftMargin, 4, $item->description, 0, 'L');
+        $this->Cell($this->w * 0.5 - $this->leftMargin, 3, '', 0, 0);
 
         $this->SetY($yOld);
         $this->SetX($this->w * 0.5);
@@ -123,7 +123,7 @@ class Items extends Drawable
         $this->SetTextColor(255, 255, 255);
         $this->SetFillColor(0, 136, 204);
         $this->SetXY($x, $y);
-        $this->Rect($this->documentWidth *0.5 + $this->sideMargin, $y, $this->documentWidth * 0.5 - $this->sideMargin, 8, 'F');
+        $this->Rect($this->documentWidth *0.5 + $this->leftMargin, $y, $this->documentWidth * 0.5 - $this->leftMargin, 8, 'F');
         $this->Cell($this->documentWidth*0.5*1/3, 8, $labelTotal, 0, 0, 'R');
         $this->Cell($this->documentWidth*0.5*1/3, 8, $betrag, 0, 1, 'R');
         $this->SetTextColor(0, 0, 0);

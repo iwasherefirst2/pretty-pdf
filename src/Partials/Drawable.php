@@ -2,6 +2,7 @@
 
 namespace PrettyPdf\Partials;
 
+use PrettyPdf\Builder\Cell;
 use PrettyPdf\PDF;
 
 /**
@@ -11,8 +12,10 @@ use PrettyPdf\PDF;
  * @property array $words
  * @property float $documentWidth
  * @property string $lang default is 'en'
- * @property float $sideMargin
- * @property float topInfoBoxWidth
+ * @property float $leftMargin // Is actually only the left margin
+ * @property float $rightMargin
+ * @property float $topInfoBoxWidth
+ * @property float $halfContentWidth // Half documentwidth minus sideMargin.
  * @method setLineWidth(int $lineWidth) http://fpdf.org/en/doc/setlinewidth.htm
  * @method setDrawColor(int $red, int $green, int $blue) http://fpdf.org/en/doc/setdrawcolor.htm
  * @method line(float $x1, float $y1, float $x2, float $y2) http://www.fpdf.org/en/doc/line.htm
@@ -23,6 +26,8 @@ use PrettyPdf\PDF;
  * @method cell(float $width, float $height=0, string $content='', mixed $border=null, int $nextLine=0, string $align='L', bool $fill = false, mixed $link ='') http://www.fpdf.org/en/doc/cell.htm
  * @method multiCell(float $width, float $height=0, string $content='', mixed $border=0, string $align='L', bool $fill=false) http://www.fpdf.org/en/doc/multicell.htm
  * @method image(string $path, float $xPosition, float $yPosition, float $width, float $height, string $type ='', mixed $link = '') http://www.fpdf.org/en/doc/image.htm
+ * @method setBoldFontSize(float $size)
+ * @method setPlainFontSize(float $size)
  */
 abstract class Drawable
 {
@@ -30,7 +35,22 @@ abstract class Drawable
      * @var PDF
      */
     protected $pdf;
-    
+
+    /**
+     * @var Cell
+     */
+    protected $cellBuilder;
+
+    /**
+     * Drawable constructor.
+     * @param Cell $cellBuilder
+     */
+    public function __construct(Cell $cellBuilder)
+    {
+        $this->cellBuilder = $cellBuilder;
+    }
+
+
     public function __call($name, $arguments)
     {
         return call_user_func_array([$this->pdf, $name], $arguments);

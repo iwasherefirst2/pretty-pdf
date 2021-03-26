@@ -6,7 +6,7 @@ class PrettyPdfTest extends PrettyPdfTestCase
 {
     public function test_complete_document()
     {
-        $this->storeOnly = true;
+        //$this->storeOnly = true;
 
         $data2 = $this->getItemData();
 

@@ -2,8 +2,17 @@
 
 namespace PrettyPdf\Partials\Header;
 
+use PrettyPdf\Builder\Cell;
 use PrettyPdf\Partials\Drawable;
 
+/**
+ * Class ReturnAddress
+ *
+ * Creates return address right about
+ * the address of receipent
+ *
+ * @package PrettyPdf\Partials\Header
+ */
 class ReturnAddress extends Drawable
 {
     /**
@@ -15,18 +24,21 @@ class ReturnAddress extends Drawable
     {
         $this->address = $address;
     }
-    
-    /**
-     * Add infobox in the top right corner of invoice
-     */
+
     public function draw(): void
     {
         $this->SetTextColor(0, 136, 204);
             
-        $this->SetXY($this->sideMargin, 51);
+        $this->SetXY($this->leftMargin, 51);
 
         $this->SetFont('DejaVuSansCondensed', '', 7);
 
-        $this->Cell(100, 10, $this->address, 0, 1);
+        $this->Cell(
+            $width = 100,
+            $height = 10,
+            $this->address,
+            Cell::NO_BORDER,
+            CELL::MOVE_POSITION_TO_NEXT_LINE_START_AT_BOX
+        );
     }
 }

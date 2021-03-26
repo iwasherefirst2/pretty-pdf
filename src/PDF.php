@@ -4,21 +4,11 @@ namespace PrettyPdf;
 
 class PDF extends \tFPDF
 {
-    const NO_BORDER = 0;
-
-    const BORDER    = 1;
-
-    const ALIGN_LEFT = 'L';
-
-    const MOVE_POSITION_BELOW = 2;
-    
-    const MOVE_POSITION_TO_NEXT_LINE = 1;
-
-    const MOVE_POSITION_TO_THE_RIGHT = 0;
-    
-    private $sideMargin = 20;
+    private $leftMargin = 20;
 
     private $topMargin = 10;
+
+    private $rightMargin = 10;
     
     private $words;
 
@@ -27,6 +17,8 @@ class PDF extends \tFPDF
     public $yPositionAfterTable;
     
     public $yPositionAfterTotalAmount;
+
+    public $halfContentWidth;
     
     private $mapNames = [
         'documentWidth' => 'w',
@@ -38,7 +30,7 @@ class PDF extends \tFPDF
     {
         parent::__construct();
 
-        $this->SetMargins($this->sideMargin, $this->topMargin);
+        $this->SetMargins($this->leftMargin, $this->topMargin);
 
         $this->AddFont('DejaVuSansCondensed', '', 'DejaVuSansCondensed.ttf', true);
         $this->AddFont('DejaVuSansCondensed', 'B', 'DejaVuSansCondensed-Bold.ttf', true);
@@ -46,11 +38,13 @@ class PDF extends \tFPDF
         $this->AddFont('DejaVuSansCondensed', 'I', 'DejaVuSansCondensed-Oblique.ttf', true);
 
         $this->AliasNbPages();
-        $this->SetMargins($this->sideMargin, $this->topMargin);
+        $this->SetMargins($this->leftMargin, $this->topMargin);
         $this->AddPage();
 
         $this->setLocalizationPath(__DIR__ . '/Localization/');
         $this->localize('en');
+
+        $this->halfContentWidth = $this->w * 0.5 - $this->leftMargin;
     }
     
     public function setBoldFontSize(float $fontSize): void

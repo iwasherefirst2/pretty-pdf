@@ -2,14 +2,13 @@
 
 namespace PrettyPdf\Partials\Body;
 
+use PrettyPdf\Builder\Cell;
 use PrettyPdf\Partials\Body\Data\PaymentInfo as PaymentInfoData;
 use PrettyPdf\Partials\Drawable;
 use PrettyPdf\PDF;
 
 class PaymentInfo extends Drawable
 {
-    private $cellWidth;
-
     /**
      * @var PaymentInfo
      */
@@ -22,7 +21,9 @@ class PaymentInfo extends Drawable
     
     public function draw(): void
     {
-        $this->cellWidth = $this->documentWidth*0.5 - $this->sideMargin - 5;
+
+        $this->cellBuilder->width       = $this->halfContentWidth - 5;
+        $this->cellBuilder->newPosition = Cell::MOVE_POSITION_TO_NEXT_LINE_START_AT_BOX;
 
         $this->setYCoordinateBelowTable();
         
@@ -48,24 +49,16 @@ class PaymentInfo extends Drawable
     private function createTitle(): void
     {
         $this->setBoldFontSize(12);
-        
 
-        $cellHeight = 7;
-        
-        $this->cell(
-            $this->cellWidth,
-            $cellHeight,
-            $this->data->title,
-            PDF::NO_BORDER,
-            PDF::MOVE_POSITION_BELOW,
-            PDF::ALIGN_LEFT
-        );
+        $this->cellBuilder->height = 7;
+
+        $this->cellBuilder->create($this->data->title);
 
         $yPosition = $this->GetY()+1;
         $this->line(
-            $this->GetX(),// Will be new line (Position Below) but with SideMargin
+            $this->GetX(),// Will be new line (Position Below) but with SideMargin (because getY() resets X)
             $yPosition,
-            $this->GetX() + $this->cellWidth,
+            $this->GetX() + $this->cellBuilder->width,
             $yPosition
         );
 
@@ -74,37 +67,23 @@ class PaymentInfo extends Drawable
     
     private function addDescription(): void
     {
-        $lineHeight = 6;
-        
-        $this->MultiCell(
-            $this->cellWidth,
-            $lineHeight,
-            $this->data->description,
-            PDF::NO_BORDER,
-            PDF::ALIGN_LEFT
-        );
+        $this->cellBuilder->height = 6;
+
+        $this->cellBuilder->createMulticell($this->data->description);
     }
     
     private function addTableRow(string $label, string $value): void
     {
-        $cellHeight = 6;
-        
-        $this->cell(
-            $this->cellWidth* 1/4,
-            $cellHeight,
+        $this->cellBuilder->create(
             $label,
-            PDF::NO_BORDER,
-            PDF::MOVE_POSITION_TO_THE_RIGHT,
-            PDF::ALIGN_LEFT
+            $this->cellBuilder->width * 1/4,
+            Cell::MOVE_POSITION_TO_THE_RIGHT
         );
-        
-        $this->cell(
-            $this->cellWidth * 3/4,
-            $cellHeight,
+
+        $this->cellBuilder->create(
             $value,
-            PDF::NO_BORDER,
-            PDF::MOVE_POSITION_TO_NEXT_LINE,
-            PDF::ALIGN_LEFT
+            $this->cellBuilder->width * 3/4,
+            Cell::MOVE_POSITION_TO_NEXT_LINE_START_AT_BOX
         );
     }
 }
