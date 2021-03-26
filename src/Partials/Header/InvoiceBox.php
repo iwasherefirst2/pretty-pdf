@@ -2,6 +2,7 @@
 
 namespace PrettyPdf\Partials\Header;
 
+use PrettyPdf\Builder\Cell;
 use PrettyPdf\Partials\Drawable;
 
 class InvoiceBox extends Drawable
@@ -36,9 +37,15 @@ class InvoiceBox extends Drawable
     
     private function addInvoiceHeadline()
     {
-        $this->setFont('DejaVuSansCondensed', '', 38);
-        $this->setXY(($this->documentWidth) * 0.5 +5, 55);
-        $this->cell(100, 10, strtoupper($this->headline ?? $this->words['Invoice']), 0, 1);
+        $this->setPlainFontSize(38);
+        $this->setXY($this->documentWidth*0.5 + 5, 55);
+        $this->cell(
+            $width = 100,
+            $height = 10,
+            strtoupper($this->headline ?? $this->words['Invoice']),
+            Cell::NO_BORDER,
+            Cell::MOVE_POSITION_TO_NEXT_LINE_START_AT_BOX
+        );
     }
 
     private function addInvoiceBoxEntry(string $label, string $value)
@@ -50,8 +57,8 @@ class InvoiceBox extends Drawable
         $label = $this->words[$label] ?? $label;
         
         $columns = max(3, count($this->data));
-        
-        $this->SetFont('DejaVuSansCondensed', '', 11);
+
+        $this->setPlainFontSize(11);
 
         $startPos = $this->documentWidth * 0.5 +5 ;
         $x_pos = $startPos + $this->position/$columns * ($this->documentWidth* 0.5-15);
@@ -65,7 +72,7 @@ class InvoiceBox extends Drawable
 
         $this->setXY($x_pos, 80);
 
-        $this->setFont('DejaVuSansCondensed', 'B', 11);
+        $this->setBoldFontSize(11);
 
         $this->setTextColor(0, 0, 0);
 

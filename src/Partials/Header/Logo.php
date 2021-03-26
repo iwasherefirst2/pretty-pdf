@@ -21,6 +21,6 @@ class Logo extends Drawable
      */
     public function draw(): void
     {
-        $this->image($this->path, 20, 10, 0, 25);
+        $this->image($this->path, $this->leftMargin, 10, 0, 25);
     }
 }

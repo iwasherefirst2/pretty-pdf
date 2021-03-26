@@ -5,7 +5,6 @@ namespace PrettyPdf\Partials\Body;
 use PrettyPdf\Builder\Cell;
 use PrettyPdf\Partials\Body\Data\PaymentInfo as PaymentInfoData;
 use PrettyPdf\Partials\Drawable;
-use PrettyPdf\PDF;
 
 class PaymentInfo extends Drawable
 {
@@ -21,15 +20,14 @@ class PaymentInfo extends Drawable
     
     public function draw(): void
     {
-
         $this->cellBuilder->width       = $this->halfContentWidth - 5;
         $this->cellBuilder->newPosition = Cell::MOVE_POSITION_TO_NEXT_LINE_START_AT_BOX;
 
         $this->setYCoordinateBelowTable();
         
         $this->createTitle();
-        
-        $this->setPlainFontSize(10);
+
+        $this->createSeperatorLine();
         
         $this->addDescription();
         
@@ -53,7 +51,10 @@ class PaymentInfo extends Drawable
         $this->cellBuilder->height = 7;
 
         $this->cellBuilder->create($this->data->title);
+    }
 
+    private function createSeperatorLine()
+    {
         $yPosition = $this->GetY()+1;
         $this->line(
             $this->GetX(),// Will be new line (Position Below) but with SideMargin (because getY() resets X)
@@ -68,6 +69,7 @@ class PaymentInfo extends Drawable
     private function addDescription(): void
     {
         $this->cellBuilder->height = 6;
+        $this->setPlainFontSize(10);
 
         $this->cellBuilder->createMulticell($this->data->description);
     }

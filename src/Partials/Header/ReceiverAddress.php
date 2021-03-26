@@ -32,8 +32,6 @@ class ReceiverAddress extends Drawable
 
         $this->cellWidth = $this->documentWidth*0.5 - $this->leftMargin;
 
-
-
         $height = $this->getLineHeight();
         
         foreach ($this->address as $text) {
@@ -43,13 +41,12 @@ class ReceiverAddress extends Drawable
 
     private function getLineHeight(): float
     {
+        // Use dummy_pdf to compute the height so that address fits in envelope
         $pdf_dummy = new PDF();
         $pdf_dummy->AddFont('DejaVuSansCondensed', '', 'DejaVuSansCondensed.ttf', true);
         $pdf_dummy->AddPage();
         $pdf_dummy->SetFont('DejaVuSansCondensed', '', 11);
         $pdf_dummy->setY(0);
-
-        // Use dummy_pdf to compute the height so that address fits in envelope
 
         if (count($this->address) >= 7) {
             $pdf_dummy->SetFont('DejaVuSansCondensed', '', 9);
