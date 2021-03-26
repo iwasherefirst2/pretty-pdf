@@ -1,13 +1,12 @@
 <?php
 
-namespace PrettyPdf\Partials\Body;
+namespace PrettyPdf\Partials\Body\Items;
 
+use PrettyPdf\Builder\Cell;
 use PrettyPdf\Partials\Drawable;
 
 class Items extends Drawable
 {
-    private $barWidth = 8;
-    
     /**
      * @var iterable
      */
@@ -21,7 +20,7 @@ class Items extends Drawable
      * @var float
      */
     private $sum = 0;
-    
+
     public function set(iterable $items, $grossPercentage = 0, $currency = '€'): void
     {
         $this->items           = $items;
@@ -31,57 +30,44 @@ class Items extends Drawable
     
     public function draw(): void
     {
-        $this->drawTableHead();
+        $drawTable = new TableHeader($this->pdf, $this->cellBuilder);
+
+        $drawTable->draw();
         
         foreach ($this->items as $item) {
             $this->addItem($item);
         }
-        
+
         $this->completeTable();
-    }
-    
-    private function drawTableHead(): void
-    {
-        $this->setDrawColor(0, 136, 204);
-        $this->setLineWidth($this->barWidth);
-        // 106 is the position where one should fold a letter
-        // so the address matches the envelope
-        $this->line(0, 106 + $this->barWidth/2, $this->documentWidth, 106 + $this->barWidth/2);
-        $this->setLineWidth(0);
-        $this->setDrawColor(0, 0, 0);
-        $this->setTextColor(255, 255, 255);
-        $this->setFont('DejaVuSansCondensed', 'B', 10);
-        $this->setXY($this->leftMargin, 106);
-        $this->cell(($this->documentWidth)*0.5 - $this->leftMargin, $this->barWidth, strtoupper($this->words['Item Description']));
-        $this->cell(($this->documentWidth)*0.5*1/3, $this->barWidth, strtoupper($this->words['Unit Price']), 0, 0, 'C');
-        $this->cell(($this->documentWidth)*0.5*1/3, $this->barWidth, strtoupper($this->words['Quantity']), 0, 0, 'C');
-        $this->cell(($this->documentWidth)*0.5*1/3, $this->barWidth, strtoupper($this->words['Total']), 0, 1, 'C');
     }
     
     private function addItem($item)
     {
         $this->sum = $this->sum + $item->quantity * $item->getPrice();
+
         $this->SetTextColor(0, 0, 0);
         $this->SetFillColor(224, 224, 224);
         $this->SetDrawColor(224, 224, 224);
         $this->SetX(0);
         $yOld = $this->getY();
-        $this->Cell($this->w * 0.5, 3, '', 1, 2, '', 1);
-        $this->Cell($this->leftMargin, 5, '', 1, 0);
-        $this->SetFont('DejaVuSansCondensed', 'B', 9);
-        $this->Cell(($this->w)*0.5 - $this->leftMargin, 5, $item->name, 1, 2);
-        $this->SetFont('DejaVuSansCondensed', '', 8);
-        $this->MultiCell(($this->w)*0.5 - $this->leftMargin, 4, $item->description, 0, 'L');
-        $this->Cell($this->w * 0.5 - $this->leftMargin, 3, '', 1, 2, '', 1);
 
-        $x = $this->GetX();
+        $this->Cell($this->documentWidth * 0.5, 3, '', 1, 2, '', 1);
+        $this->Cell($this->leftMargin, 5, '', 1, 0);
+
+        $this->setBoldFontSize(9);
+
+        $this->Cell($this->documentWidth*0.5 - $this->leftMargin, 5, $item->name, 1, 2);
+        $this->setPlainFontSize(8);
+        $this->MultiCell($this->documentWidth*0.5 - $this->leftMargin, 4, $item->description, 0, 'L');
+        $this->Cell($this->documentWidth * 0.5 - $this->leftMargin, 3, '', 1, 2, '', 1);
+
         $y = $this->GetY();
-        $this->Rect(0, $yOld, $this->w * 0.5, $y - $yOld, 'F');
+        $this->Rect(0, $yOld, $this->documentWidth * 0.5, $y - $yOld, 'F');
 
         $this->SetY($yOld);
         $this->SetX(0);
 
-        $this->Cell($this->w * 0.5, 3, '', 1, 2);
+        $this->Cell($this->documentWidth * 0.5, 3, '', 1, 2);
         $this->Cell($this->leftMargin, 5, '', 1, 0);
         $this->SetFont('DejaVuSansCondensed', 'B', 9);
         $this->Cell(($this->w)*0.5 - $this->leftMargin, 5, $item->name, 1, 2);
@@ -146,20 +132,32 @@ class Items extends Drawable
         $mehrWert  = $this->round($mehrWert);
     
         $yPos = $this->GetY();
-        
-        $this->SetFont('DejaVuSansCondensed', 'B', 11);
-        $this->Cell($this->documentWidth*0.5*1/3, 8, $this->words['Gross amount'], 0, 2, 'R');
-        $this->SetFont('DejaVuSansCondensed', '', 11);
-        $this->Cell($this->documentWidth*0.5*1/3, 8, $this->words['Net amount'], 0, 2, 'R');
-        $vat = str_replace('?', $this->grossPercentage . ' %', $this->words['Incl. ? VAT.']);
-        $this->Cell($this->documentWidth*0.5*1/3, 8, $vat, 0, 0, 'R');
+
+        $this->cellBuilder->width = $this->documentWidth*0.5*1/3;
+        $this->cellBuilder->align = Cell::ALIGN_RIGHT;
+        $this->cellBuilder->height = 8;
+        $this->cellBuilder->newPosition = Cell::MOVE_POSITION_TO_NEXT_LINE_START_AT_SIDEMARGIN;
+
+        $this->setBoldFontSize(11);
+        $this->cellBuilder->create($this->words['Gross amount']);
+
+        $this->setPlainFontSize(11);
+        $this->cellBuilder->create($this->words['Net amount']);
+        $this->cellBuilder->create($this->getVat(), null, Cell::MOVE_POSITION_TO_THE_RIGHT);
+
         $this->SetXY($this->GetX(), $yPos);
-        $this->SetFont('DejaVuSansCondensed', 'B', 11);
-        $this->Cell($this->documentWidth*0.5*1/3, 8, $betrag, 0, 2, 'R');
-        $this->SetFont('DejaVuSansCondensed', '', 11);
-        $this->Cell($this->documentWidth*0.5*1/3, 8, $netto, 0, 2, 'R');
-        $this->Cell($this->documentWidth*0.5*1/3, 8, $mehrWert, 0, 1, 'R');
+        $this->setBoldFontSize(11);
+        $this->cellBuilder->create($betrag);
+
+        $this->setPlainFontSize(11);
+        $this->cellBuilder->create($netto);
+        $this->cellBuilder->create($mehrWert);
 
         return $this->words['Gross amount'];
+    }
+
+    private function getVat(): string
+    {
+        return  str_replace('?', $this->grossPercentage . ' %', $this->words['Incl. ? VAT.']);
     }
 }

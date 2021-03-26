@@ -31,10 +31,7 @@ use PrettyPdf\PDF;
  */
 abstract class Drawable
 {
-    /**
-     * @var PDF
-     */
-    protected $pdf;
+    use PDFSynchronized;
 
     /**
      * @var Cell
@@ -48,17 +45,6 @@ abstract class Drawable
     public function __construct(Cell $cellBuilder)
     {
         $this->cellBuilder = $cellBuilder;
-    }
-
-
-    public function __call($name, $arguments)
-    {
-        return call_user_func_array([$this->pdf, $name], $arguments);
-    }
-    
-    public function __get($name)
-    {
-        return $this->pdf->{$name};
     }
     
     abstract public function draw(): void;

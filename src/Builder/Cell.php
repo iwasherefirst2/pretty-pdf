@@ -1,8 +1,6 @@
 <?php
 
-
 namespace PrettyPdf\Builder;
-
 
 use PrettyPdf\PDF;
 
@@ -13,7 +11,9 @@ class Cell
     const BORDER    = 1;
 
     const ALIGN_LEFT  = 'L';
+
     const ALIGN_RIGHT = 'R';
+
     const ALIGN_CENTER = 'C';
 
     const MOVE_POSITION_TO_NEXT_LINE_START_AT_SIDEMARGIN = 2;
@@ -56,7 +56,6 @@ class Cell
      * @var bool
      */
     public $fill;
-
 
     /**
      * Cell constructor.
@@ -103,6 +102,4 @@ class Cell
             $this->fill
         );
     }
-
-
 }
