@@ -3,8 +3,8 @@
 namespace Tests;
 
 use PrettyPdf\PrettyPdf;
-use PrettyPdf\Partials\Body\Data\Item;
-use PrettyPdf\Partials\Body\Data\PaymentInfo;
+use PrettyPdf\Partials\Invoice\Data\Item;
+use PrettyPdf\Partials\Invoice\Data\PaymentInfo;
 use PHPUnit\Framework\TestCase;
 
 class PrettyPdfTestCase extends TestCase

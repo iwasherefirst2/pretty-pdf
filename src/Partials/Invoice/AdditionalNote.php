@@ -1,6 +1,6 @@
 <?php
 
-namespace PrettyPdf\Partials\Body;
+namespace PrettyPdf\Partials\Invoice;
 
 use PrettyPdf\Partials\Drawable;
 

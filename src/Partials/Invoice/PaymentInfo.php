@@ -1,9 +1,9 @@
 <?php
 
-namespace PrettyPdf\Partials\Body;
+namespace PrettyPdf\Partials\Invoice;
 
 use PrettyPdf\Builder\Cell;
-use PrettyPdf\Partials\Body\Data\PaymentInfo as PaymentInfoData;
+use PrettyPdf\Partials\Invoice\Data\PaymentInfo as PaymentInfoData;
 use PrettyPdf\Partials\Drawable;
 
 class PaymentInfo extends Drawable

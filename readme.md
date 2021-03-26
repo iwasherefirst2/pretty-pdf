@@ -7,14 +7,14 @@ This package is build on tFPDF, i.e. it supports also UTF8.
 
 ```php 
 
-    $item = new \PrettyPdf\Partials\Body\Data\Item();
+    $item = new \PrettyPdf\Partials\Invoice\Data\Item();
 
     $item->description = 'A new currency';
     $item->quantity = 5;
     $item->name = 'Bitcoin';
     $item->unitPrice = 2031.23;
 
-    $paymentInfoDate = new \PrettyPdf\Partials\Body\Data\PaymentInfo();
+    $paymentInfoDate = new \PrettyPdf\Partials\Invoice\Data\PaymentInfo();
 
     $paymentInfoDate->title = 'A really good title';
     $paymentInfoDate->description = 'A long description comes in here';

@@ -1,6 +1,6 @@
 <?php
 
-namespace PrettyPdf\Partials\Body\Items;
+namespace PrettyPdf\Partials\Invoice\Items;
 
 use PrettyPdf\Builder\Cell;
 use PrettyPdf\Partials\PDFSynchronized;

@@ -1,6 +1,6 @@
 <?php
 
-namespace PrettyPdf\Partials\Body\Data;
+namespace PrettyPdf\Partials\Invoice\Data;
 
 class PaymentInfo
 {
