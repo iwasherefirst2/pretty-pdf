@@ -8,9 +8,9 @@
             "email": "1765602+iwasherefirst2@users.noreply.github.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
-        "setasign/tfpdf": "dev-master"
+        "setasign/tfpdf": "1.25"
     },
     "autoload": {
         "psr-4": {
