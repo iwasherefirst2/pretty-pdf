@@ -7,17 +7,10 @@ use PrettyPdf\Partials\Drawable;
 
 class Date extends Drawable
 {
-    /**
-     * @var string|null
-     */
-    private $date;
+    private ?string $date;
+    private bool $up;
 
-    /**
-     * @var bool
-     */
-    private $up;
-
-    public function set(string $date = null, bool $up = false)
+    public function set(string $date = null, bool $up = false): void
     {
         $this->up = $up;
         $this->date = $date;

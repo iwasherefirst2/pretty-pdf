@@ -7,12 +7,9 @@ use PrettyPdf\Partials\Drawable;
 
 class Text extends Drawable
 {
-    /**
-     * @var string
-     */
-    private $text;
+    private string $text;
 
-    public function set(string $text)
+    public function set(string $text): void
     {
         $this->text = $text;
     }

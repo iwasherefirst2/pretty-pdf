@@ -7,22 +7,11 @@ use PrettyPdf\Partials\Drawable;
 
 class TableBox extends Drawable
 {
-    /**
-     * @var string
-     */
-    private $title;
+    private string $title;
+    private array $rows;
+    private array $header;
 
-    /**
-     * @var array
-     */
-    private $rows;
-
-    /**
-     * @var array
-     */
-    private $header;
-
-    public function set(string $title, array $rows)
+    public function set(string $title, array $rows): void
     {
         $this->title = $title;
         $this->rows  = $rows;
@@ -34,7 +23,7 @@ class TableBox extends Drawable
         $this->createTable();
     }
 
-    private function addHeadline()
+    private function addHeadline(): void
     {
         $this->setPlainFontSize(38);
         $this->SetXY($this->documentWidth * 0.5 + 5, 55);
@@ -42,12 +31,12 @@ class TableBox extends Drawable
         $this->ln(8);
     }
 
-    private function refreshX()
+    private function refreshX(): void
     {
         $this->SetX($this->documentWidth * 0.5 * (1.1));
     }
 
-    private function createTable()
+    private function createTable(): void
     {
         $height = 8;
         $borderHead = 'RB';
