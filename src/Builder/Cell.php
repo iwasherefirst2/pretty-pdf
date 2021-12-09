@@ -7,60 +7,22 @@ use PrettyPdf\PDF;
 class Cell
 {
     const NO_BORDER = 0;
-
     const BORDER    = 1;
-
     const ALIGN_LEFT  = 'L';
-
     const ALIGN_RIGHT = 'R';
-
     const ALIGN_CENTER = 'C';
-
     const MOVE_POSITION_TO_NEXT_LINE_START_AT_PREVIOUS_CELL = 2;
-
     const MOVE_POSITION_TO_NEXT_LINE_START_AT_SIDEMARGIN = 1;
-
     const MOVE_POSITION_TO_THE_RIGHT = 0;
 
-    /**
-     * @var PDF
-     */
-    private $pdf;
+    private PDF $pdf;
+    public float $width;
+    public float $height;
+    public string $align;
+    public string $border;
+    public int $newPosition;
+    public bool $fill;
 
-    /**
-     * @var float
-     */
-    public $width;
-
-    /**
-     * @var float
-     */
-    public $height;
-
-    /**
-     * @var string
-     */
-    public $align;
-
-    /**
-     * @var int;
-     */
-    public $border;
-
-    /**
-     * @var int
-     */
-    public $newPosition;
-
-    /**
-     * @var bool
-     */
-    public $fill;
-
-    /**
-     * Cell constructor.
-     * @param PDF $pdf
-     */
     public function __construct(PDF $pdf)
     {
         $this->pdf = $pdf;
@@ -68,7 +30,7 @@ class Cell
         $this->resetToDefault();
     }
 
-    public function resetToDefault()
+    public function resetToDefault(): void
     {
         $this->align   = static::ALIGN_LEFT;
         $this->border  = static::NO_BORDER;
@@ -78,7 +40,7 @@ class Cell
         $this->width   = 0;
     }
 
-    public function create($value, $width = null, $newPosition = null)
+    public function create($value, $width = null, $newPosition = null): void
     {
         $this->pdf->cell(
             $width ?? $this->width,
@@ -91,7 +53,7 @@ class Cell
         );
     }
 
-    public function createMulticell($value, $width = null)
+    public function createMulticell($value, $width = null): void
     {
         $this->pdf->multiCell(
             $width ?? $this->width,

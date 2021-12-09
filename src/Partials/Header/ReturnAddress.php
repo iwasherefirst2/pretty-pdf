@@ -15,10 +15,7 @@ use PrettyPdf\Partials\Drawable;
  */
 class ReturnAddress extends Drawable
 {
-    /**
-     * @var string
-     */
-    private $address;
+    private string $address;
 
     public function set(string $address): void
     {

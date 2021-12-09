@@ -7,31 +7,21 @@ use PrettyPdf\PDF;
 
 class ReceiverAddress extends Drawable
 {
-    private $cellWidth;
+    private int $cellWidth;
+    private array $address;
 
-    /**
-     * @var array
-     */
-    private $address;
-
-    public function set(array $address)
+    public function set(array $address): void
     {
         $this->address = $address;
     }
-    
-    /**
-     * Add infobox in the top right corner of invoice
-     */
+
+    // Add infobox in the top right corner of invoice
     public function draw(): void
     {
         $this->SetTextColor(0, 0, 0);
-
         $this->SetFont('DejaVuSansCondensed', '', 11);
-
         $this->SetXY($this->leftMargin, 61);
-
         $this->cellWidth = $this->documentWidth*0.5 - $this->leftMargin;
-
         $height = $this->getLineHeight();
         
         foreach ($this->address as $text) {

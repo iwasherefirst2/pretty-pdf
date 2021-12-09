@@ -7,22 +7,13 @@ use PrettyPdf\Partials\Drawable;
 
 class InvoiceBox extends Drawable
 {
-    /**
-     * @var array
-     */
-    private $data;
-    
-    private $position = 0;
+    private array $data;
+    private int $position = 0;
+    private ?string $headline;
 
-    /**
-     * @var string|null
-     */
-    private $headline;
-
-    public function set(array $data, $headline = null)
+    public function set(array $data, $headline = null): void
     {
         $this->data = $data;
-        
         $this->headline = $headline;
     }
     
@@ -35,7 +26,7 @@ class InvoiceBox extends Drawable
         }
     }
     
-    private function addInvoiceHeadline()
+    private function addInvoiceHeadline(): void
     {
         $this->setPlainFontSize(38);
         $this->setXY($this->documentWidth*0.5 + 5, 55);
@@ -48,12 +39,8 @@ class InvoiceBox extends Drawable
         );
     }
 
-    private function addInvoiceBoxEntry(string $label, string $value)
+    private function addInvoiceBoxEntry(string $label, string $value): void
     {
-        if ($label == 'Date' && $value == 'Today') {
-            $value = $this->getDate();
-        }
-
         $label = $this->words[$label] ?? $label;
         
         $columns = max(3, count($this->data));
@@ -77,14 +64,5 @@ class InvoiceBox extends Drawable
         $this->setTextColor(0, 0, 0);
 
         $this->multiCell(($this->documentWidth*0.5-15) * 1/3, 5, $value);
-    }
-
-    private function getDate()
-    {
-        if (strtolower($this->lang) == 'en') {
-            return date('d M Y');
-        }
-
-        return date('d/m/Y');
     }
 }

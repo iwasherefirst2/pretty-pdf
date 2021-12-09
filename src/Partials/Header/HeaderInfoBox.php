@@ -7,35 +7,18 @@ use PrettyPdf\Partials\Drawable;
 
 class HeaderInfoBox extends Drawable
 {
-    /**
-     * @var int
-     */
-    private $fontHeight;
-
-    /**
-     * @var int
-     */
-    private $headHight = 45;
-
-    /**
-     * @var int
-     */
-    private $topInfoBoxWidth = 50;
-
-    /**
-     * @var array
-     */
-    private $infos;
+    private int $fontHeight;
+    private int $headHight = 45;
+    private int $topInfoBoxWidth = 50;
+    private array $infos;
 
     public function set(array $infos, int $fontHeight = 8): void
     {
         $this->infos      = $infos;
         $this->fontHeight = $fontHeight;
     }
-    
-    /**
-     * Add infobox in the top right corner of invoice
-     */
+
+    // Add infobox in the top right corner of invoice
     public function draw(): void
     {
         $this->setPlainFontSize($this->fontHeight);
@@ -55,7 +38,7 @@ class HeaderInfoBox extends Drawable
         $this->addHeaderLine();
     }
     
-    private function addHeaderLine()
+    private function addHeaderLine(): void
     {
         $this->setLineWidth(2);
 
@@ -72,7 +55,7 @@ class HeaderInfoBox extends Drawable
         );
     }
 
-    private function drawLine(float $from, float $to)
+    private function drawLine(float $from, float $to): void
     {
         $this->line($from, $this->headHight, $to, $this->headHight);
     }
