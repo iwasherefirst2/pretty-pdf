@@ -1,4 +1,8 @@
-FROM php:7.3-apache
+FROM php:7.4-fpm
+
+ARG WWWGROUP
+ARG WWWUSER
+ARG USERNAME
 
 COPY . /var/www/html
 
@@ -15,3 +19,10 @@ RUN docker-php-ext-install gd && apt-get update && apt-get install -y ghostscrip
 
 #Important for composer
 RUN set -eux; apt-get update; apt-get install -y libzip-dev zlib1g-dev; docker-php-ext-install zip
+
+RUN groupadd -g $WWWGROUP -o $USERNAME
+RUN useradd -m -u $WWWUSER -g $WWWGROUP -o -s /bin/bash $USERNAME
+USER $USERNAME
+
+
+

@@ -2,11 +2,12 @@ version: '3'
 services:
   app:
     build:
-      args:
-        user: sammy
-        uid: 1000
       context: ./
       dockerfile: Dockerfile
+      args:
+          WWWGROUP: '${WWWGROUP:-1000}'
+          WWWUSER: '${WWWUSER:-1000}' 
+          USERNAME: '${USERNAME:-HermineGranger}' 
     image: beauty-bill
     volumes:
       - ./:/var/www/html
