@@ -10,7 +10,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "setasign/tfpdf": "1.25"
+        "setasign/tfpdf": "^1.32"
     },
     "autoload": {
         "psr-4": {
