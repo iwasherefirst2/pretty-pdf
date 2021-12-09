@@ -8,12 +8,9 @@ use PrettyPdf\Partials\Drawable;
 
 class PaymentInfo extends Drawable
 {
-    /**
-     * @var PaymentInfo
-     */
-    private $data;
+    private PaymentInfoData $data;
 
-    public function set(PaymentInfoData $data)
+    public function set(PaymentInfoData $data): void
     {
         $this->data =$data;
     }
@@ -24,13 +21,9 @@ class PaymentInfo extends Drawable
         $this->cellBuilder->newPosition = Cell::MOVE_POSITION_TO_NEXT_LINE_START_AT_SIDEMARGIN;
 
         $this->setYCoordinateBelowTable();
-        
         $this->createTitle();
-
         $this->createSeperatorLine();
-        
         $this->addDescription();
-        
         $this->ln();
         
         $this->addTableRow($this->words['Name:'], $this->data->name);
@@ -47,13 +40,11 @@ class PaymentInfo extends Drawable
     private function createTitle(): void
     {
         $this->setBoldFontSize(12);
-
         $this->cellBuilder->height = 7;
-
         $this->cellBuilder->create($this->data->title);
     }
 
-    private function createSeperatorLine()
+    private function createSeperatorLine(): void
     {
         $yPosition = $this->GetY()+1;
         $this->line(

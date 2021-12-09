@@ -6,22 +6,11 @@ use PrettyPdf\Partials\Drawable;
 
 class AdditionalNote extends Drawable
 {
-    /**
-     * @var string
-     */
-    private $description;
+    private string $description;
+    private float $xStartPosition;
+    private float $noteWidht;
 
-    /**
-     * @var float
-     */
-    private $xStartPosition;
-
-    /**
-     * @var float
-     */
-    private $noteWidht;
-
-    public function set(string $description)
+    public function set(string $description): void
     {
         $this->description = $description;
     }
@@ -32,13 +21,11 @@ class AdditionalNote extends Drawable
         $this->noteWidht      = $this->halfContentWidth - $this->rightMargin;
 
         $this->createTitle();
-
         $this->createSeperatorLine();
-
         $this->createDescriptionText();
     }
 
-    private function createTitle()
+    private function createTitle(): void
     {
         $yStartPosition = $this->pdf->yPositionAfterTotalAmount + 10;
 
@@ -47,12 +34,12 @@ class AdditionalNote extends Drawable
         $this->MultiCell($this->noteWidht, 7, $this->words['Note']);
     }
 
-    private function createSeperatorLine()
+    private function createSeperatorLine(): void
     {
         $this->Line($this->xStartPosition, $this->GetY()+1, $this->documentWidth - $this->rightMargin, $this->GetY()+1);
     }
 
-    private function createDescriptionText()
+    private function createDescriptionText(): void
     {
         $this->SetXY($this->xStartPosition, $this->getY()+ 5);
         $this->setPlainFontSize(10);

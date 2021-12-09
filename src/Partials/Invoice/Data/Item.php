@@ -4,27 +4,12 @@ namespace PrettyPdf\Partials\Invoice\Data;
 
 class Item
 {
-    /**
-     * @var string
-     */
-    public $title;
-
-    /**
-     * @var string
-     */
-    public $description;
-
-    /**
-     * @var string
-     */
-    public $unitPrice;
-
-    /**
-     * @var string
-     */
-    public $quantity;
+    public string $title;
+    public string $description;
+    public string $unitPrice;
+    public string $quantity;
     
-    public function getPrice()
+    public function getPrice(): string
     {
         return $this->unitPrice;
     }

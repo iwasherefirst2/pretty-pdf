@@ -7,19 +7,10 @@ use PrettyPdf\Partials\Drawable;
 
 class Items extends Drawable
 {
-    /**
-     * @var iterable
-     */
-    private $items;
-    
-    private $currency;
-    
-    private $grossPercentage;
-
-    /**
-     * @var float
-     */
-    private $sum = 0;
+    private iterable $items;
+    private string $currency;
+    private float $grossPercentage;
+    private float $sum = 0;
 
     public function set(iterable $items, $grossPercentage = 0, $currency = '€'): void
     {
@@ -31,7 +22,6 @@ class Items extends Drawable
     public function draw(): void
     {
         $drawTable = new TableHeader($this->pdf, $this->cellBuilder);
-
         $drawTable->draw();
         
         foreach ($this->items as $item) {
@@ -44,7 +34,6 @@ class Items extends Drawable
     private function addItem($item)
     {
         $this->sum = $this->sum + $item->quantity * $item->getPrice();
-
         $this->SetTextColor(0, 0, 0);
         $this->SetFillColor(224, 224, 224);
         $this->SetDrawColor(224, 224, 224);
@@ -94,7 +83,6 @@ class Items extends Drawable
     private function completeTable(): void
     {
         $betrag    = $this->round($this->sum);
-
         $this->pdf->yPositionAfterTable = $this->GetY();
         
         $y = $this->GetY()+5;
@@ -118,7 +106,7 @@ class Items extends Drawable
         $this->pdf->yPositionAfterTotalAmount = $this->GetY();
     }
     
-    private function addGross()
+    private function addGross(): string
     {
         if (empty($this->grossPercentage)) {
             return $this->words['Net amount'];

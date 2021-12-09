@@ -10,18 +10,9 @@ class TableHeader
 {
     use PDFSynchronized;
 
-    private $barWidth = 8;
+    private int $barWidth = 8;
+    private Cell $cellBuilder;
 
-    /**
-     * @var Cell
-     */
-    private $cellBuilder;
-
-    /**
-     * DrawTable constructor.
-     * @param PDF $pdf
-     * @param Cell $cellBuilder
-     */
     public function __construct(PDF $pdf, Cell $cellBuilder)
     {
         $this->pdf = $pdf;
@@ -31,9 +22,7 @@ class TableHeader
     public function draw(): void
     {
         $this->createBar();
-
         $this->setupFont();
-
         $this->setXY($this->leftMargin, 106);
 
         $this->cellBuilder->create(
@@ -61,7 +50,7 @@ class TableHeader
         $this->cellBuilder->resetToDefault();
     }
 
-    private function createBar()
+    private function createBar(): void
     {
         $this->setDrawColor(0, 136, 204);
         $this->setLineWidth($this->barWidth);
@@ -71,7 +60,7 @@ class TableHeader
         $this->line(0, 106 + $this->barWidth/2, $this->documentWidth, 106 + $this->barWidth/2);
     }
 
-    private function setupFont()
+    private function setupFont(): void
     {
         $this->setLineWidth(0);
         $this->setDrawColor(0, 0, 0);
