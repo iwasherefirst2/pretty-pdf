@@ -10,15 +10,8 @@ namespace PrettyPdf;
  */
 class PrettyPdf
 {
-    /**
-     * @var PDF
-     */
-    private $pdf;
-
-    /**
-     * @var Loader
-     */
-    private $loader;
+    private PDF $pdf;
+    private Loader $loader;
 
     public function __construct()
     {
@@ -35,14 +28,7 @@ class PrettyPdf
         return call_user_func_array([$this->pdf, 'output'], func_get_args());
     }
 
-    /**
-     * Add methods defined in parcials to
-     * object with this trait
-     * @param  string $name
-     * @param  array $arguments
-     * @return this
-     */
-    public function __call($name, $arguments)
+    public function __call(string $name, array $arguments): PrettyPdf
     {
         if (!$this->loader->hasClass($name)) {
             call_user_func_array([$this->pdf, $name], $arguments);
@@ -62,9 +48,7 @@ class PrettyPdf
         return $this;
     }
 
-    /**
-     * Allow uses to overwrite existing methods
-     */
+    // Allow uses to overwrite existing methods
     public function allowOverwriting(): void
     {
         $this->loader->allowOverwrite = true;

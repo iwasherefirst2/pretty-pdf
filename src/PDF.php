@@ -4,23 +4,16 @@ namespace PrettyPdf;
 
 class PDF extends \tFPDF
 {
-    private $leftMargin = 20;
-
-    private $topMargin = 10;
-
-    private $rightMargin = 10;
+    private int $leftMargin = 20;
+    private int $topMargin = 10;
+    private int $rightMargin = 10;
+    private array $words;
+    private string $lang;
+    public int $yPositionAfterTable;
+    public int $yPositionAfterTotalAmount;
+    public int $halfContentWidth;
     
-    private $words;
-
-    private $lang;
-    
-    public $yPositionAfterTable;
-    
-    public $yPositionAfterTotalAmount;
-
-    public $halfContentWidth;
-    
-    private $mapNames = [
+    const MAP_NAMES = [
         'documentWidth' => 'w',
     ];
     
@@ -64,8 +57,8 @@ class PDF extends \tFPDF
 
     public function __get($name)
     {
-        if (isset($this->mapNames[$name]) && !empty($name)) {
-            $name = $this->mapNames[$name];
+        if (isset(static::MAP_NAMES[$name]) && !empty($name)) {
+            $name = static::MAP_NAMES[$name];
         }
         
         return $this->{$name};
@@ -76,7 +69,7 @@ class PDF extends \tFPDF
         $this->localizationPath = $localizationPath;
     }
 
-    public function localize($lang)
+    public function localize($lang): void
     {
         $fullPath = $this->localizationPath . $lang . '.php';
         

@@ -14,6 +14,14 @@ The default format is A4. If you need a different format, just the FPDF standard
 Each section of the invoice relates to a method:
 ![image](https://user-images.githubusercontent.com/1765602/112663289-f0041e00-8e58-11eb-81cd-2826b0780f4b.png)
 
+## PHP Version Support
+
+| PHP Version | Pretty PDF Version |
+|----------------------|---------|
+| PHP 7.4              | v.2.0   |
+| PHP 5, 7.1, 7.2, 7.3 | v.1.1.0 |
+
+
 
 
 ## Example

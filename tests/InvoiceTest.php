@@ -27,11 +27,8 @@ class InvoiceTest extends PrettyPdfTestCase
         //$this->storeOnly = true;
         
         $this->prettyPdf->items([$this->getItemData()], 19);
-        
         $this->prettyPdf->paymentInfo($this->getPaymentInfo());
-        
         $this->prettyPdf->additionalNote('Optioanl note. Nothing important here.');
-
         $this->assertEqualPDFs('PaymountAmount.pdf');
     }
 }

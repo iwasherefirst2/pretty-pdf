@@ -13,32 +13,12 @@ use PrettyPdf\Builder\Cell;
  */
 class Loader
 {
-    /**
-     * @var bool
-     */
-    public $allowOverwrite;
+    public bool $allowOverwrite;
+    private array $methods;
+    private array $blockedMethods;
+    private PDF $pdf;
 
-    /**
-     * @var array
-     */
-    private $methods;
-
-    /**
-     * @var array
-     */
-    private $blockedMethods;
-
-    /**
-     * @var PDF
-     */
-    private $pdf;
-
-    /**
-     * Loader constructor.
-     * @param $localMethods
-     * @param PDF $pdf
-     */
-    public function __construct($localMethods, PDF $pdf)
+    public function __construct(array $localMethods, PDF $pdf)
     {
         $this->pdf = $pdf;
 
@@ -51,7 +31,7 @@ class Loader
         $this->addBasicPartials($localMethods);
     }
     
-    public function hasClass($name)
+    public function hasClass($name): bool
     {
         return array_key_exists($name, $this->methods);
     }
@@ -69,10 +49,9 @@ class Loader
         return new $class($cellBuilder);
     }
 
-    /**
-     * Add all methods definied in the classes
-     * in folder `Parcials`
-     */
+
+    // Add all methods definied in the classes
+    // in folder `Parcials`
     private function addBasicPartials(): void
     {
         $classes = [];
@@ -93,12 +72,8 @@ class Loader
         
         $this->addMethodFromClasses($classes);
     }
-    
-    /**
-     * Convert absolute pth to namespace
-     * @param  string $string
-     * @return string
-     */
+
+    // Convert absolute path to namespace
     private function getBeautyBillNamespace(string $string): string
     {
         // Replace absolute path from outside with Beautybill
@@ -148,10 +123,9 @@ class Loader
         $this->methods[$methodname] = $class;
     }
 
-    /**
-     * Check if class extends abstract class drawable.
-     * The native function is_subclass_of does not work for abstract classes
-     */
+
+    // Check if class extends abstract class drawable.
+    // The native function is_subclass_of does not work for abstract classes
     private function isDrawable($class): bool
     {
         $reflectionClass = new \ReflectionClass($class);
