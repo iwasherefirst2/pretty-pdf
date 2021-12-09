@@ -2,13 +2,15 @@
 
 namespace Tests;
 
+use Exception;
+use PrettyPdf\Partials\Drawable;
 use PrettyPdf\Partials\Invoice\Data\Item;
 
 class PrettyPdfTest extends PrettyPdfTestCase
 {
     public function test_complete_document()
     {
-        $this->storeOnly = true;
+        //$this->storeOnly = true;
 
         $item = new Item();
 
@@ -35,7 +37,7 @@ class PrettyPdfTest extends PrettyPdfTestCase
             ->headerInfoBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
             ->returnAddress('Dr. Schwadam, Schwinterfeldschraße 99, 10777 Berlin, Germany')
             ->receiverAddress(['Max Mustermann', 'Colorado Hippo Zoo', '5225 Figueroa Mountain Rd', 'Los Olivos', 'CA 93441', 'United States'])
-            ->invoiceBox(['Date' => 'Today', 'Invoice' => 'I 2020-03-22', 'Tax-Number' => '18/455/12345'])
+            ->invoiceBox(['Date' => '09 Dec 2021', 'Invoice' => 'I 2020-03-22', 'Tax-Number' => '18/455/12345'])
             ->items([$item, $item2, $item3], 19)
             ->paymentInfo($this->getPaymentInfo())
             ->additionalNote('Optioanl note. Nothing important here.');
@@ -45,13 +47,13 @@ class PrettyPdfTest extends PrettyPdfTestCase
 
     public function test_dissalow_overwriting_functions_by_default()
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
-        $this->prettyPdf->addCustomPartials([\Tests\Logo::class]);
+        $this->prettyPdf->addCustomPartials([Logo::class]);
     }
 }
 
-class Logo extends \PrettyPdf\Partials\Drawable
+class Logo extends Drawable
 {
     /**
      * Draw line below logo and header infobox

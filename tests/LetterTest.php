@@ -17,7 +17,7 @@ class LetterTest extends PrettyPdfTestCase
     {
         //$this->storeOnly = true;
 
-        $this->prettyPdf->date();
+        $this->prettyPdf->date('26/03/2021');
 
         $this->assertEqualPDFs('Date.pdf');
     }
@@ -32,7 +32,7 @@ class LetterTest extends PrettyPdfTestCase
             ->headerInfoBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
             ->returnAddress('Dr. Schwadam, Schwinterfeldschraße 99, 10777 Berlin, Germany')
             ->receiverAddress(['Max Mustermann', 'Colorado Hippo Zoo', '5225 Figueroa Mountain Rd', 'Los Olivos', 'CA 93441', 'United States'])
-            ->date()
+            ->date('26/03/2021')
             ->foldMarker()
             ->text("Dear Anit,\nthis is atest.\n\nEnjoy.")
             ->tableBox('Hi', $data);
