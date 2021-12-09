@@ -2,12 +2,13 @@
 
 namespace Tests;
 
+use Imagick;
 use PHPUnit\Framework\TestCase;
 use PrettyPdf\Partials\Invoice\Data\Item;
 use PrettyPdf\Partials\Invoice\Data\PaymentInfo;
 use PrettyPdf\PrettyPdf;
 
-class PrettyPdfTestCase extends TestCase
+abstract class PrettyPdfTestCase extends TestCase
 {
     protected $storeOnly = false;
 
@@ -66,12 +67,12 @@ class PrettyPdfTestCase extends TestCase
         
         $pdfContent = file_get_contents(__DIR__ . '/files/' . $filename);
         
-        $assertedImagick = new \Imagick();
+        $assertedImagick = new Imagick();
         $assertedImagick->readImageBlob($pdfContent);
         $assertedImagick->resetIterator();
         $assertedImagick = $assertedImagick->appendImages(true);
 
-        $testImagick = new \Imagick();
+        $testImagick = new Imagick();
         $testImagick->readImageBlob($content);
         $testImagick->resetIterator();
         $testImagick = $testImagick->appendImages(true);
