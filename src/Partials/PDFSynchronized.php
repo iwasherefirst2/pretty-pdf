@@ -6,10 +6,7 @@ use PrettyPdf\PDF;
 
 trait PDFSynchronized
 {
-    /**
-     * @var PDF
-     */
-    protected $pdf;
+    protected PDF $pdf;
 
     public function __call(string $name, array $arguments)
     {

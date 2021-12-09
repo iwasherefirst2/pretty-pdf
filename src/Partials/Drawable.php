@@ -33,15 +33,8 @@ abstract class Drawable
 {
     use PDFSynchronized;
 
-    /**
-     * @var Cell
-     */
-    protected $cellBuilder;
+    protected Cell $cellBuilder;
 
-    /**
-     * Drawable constructor.
-     * @param Cell $cellBuilder
-     */
     public function __construct(Cell $cellBuilder)
     {
         $this->cellBuilder = $cellBuilder;
@@ -49,7 +42,7 @@ abstract class Drawable
     
     abstract public function draw(): void;
       
-    public function setPdf(PDF $pdf)
+    public function setPdf(PDF $pdf): void
     {
         $this->pdf = $pdf;
     }
