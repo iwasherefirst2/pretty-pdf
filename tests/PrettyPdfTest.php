@@ -37,7 +37,7 @@ class PrettyPdfTest extends PrettyPdfTestCase
             ->headerInfoBox(['1600 Pennsylvania Ave NW', 'Washington', 'DC 20500', 'United States', 'Beauty Bill Package', 'info@drnielsen.de'])
             ->returnAddress('Dr. Schwadam, Schwinterfeldschraße 99, 10777 Berlin, Germany')
             ->receiverAddress(['Max Mustermann', 'Colorado Hippo Zoo', '5225 Figueroa Mountain Rd', 'Los Olivos', 'CA 93441', 'United States'])
-            ->invoiceBox(['Date' => '09 Dec 2021', 'Invoice' => 'I 2020-03-22', 'Tax-Number' => '18/455/12345'])
+            ->invoiceBox(['Date' => '26 Mar 2021', 'Invoice' => 'I 2020-03-22', 'Tax-Number' => '18/455/12345'])
             ->items([$item, $item2, $item3], 19)
             ->paymentInfo($this->getPaymentInfo())
             ->additionalNote('Optioanl note. Nothing important here.');
