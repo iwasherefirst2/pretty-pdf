@@ -21,7 +21,13 @@ Each section of the invoice relates to a method:
 | PHP 7.4              | v.2.0   |
 | PHP 5 | v.1.1.0 |
 
+## Installation
 
+Install via composer:
+
+```
+composer require iwasherefirst2/pretty-pdf
+```
 
 
 ## Example
