@@ -21,13 +21,9 @@ class Loader
     public function __construct(array $localMethods, PDF $pdf)
     {
         $this->pdf = $pdf;
-
         $this->allowOverwrite = false;
-
         $this->methods = [];
-        
         $this->blockedMethods = $localMethods;
-        
         $this->addBasicPartials($localMethods);
     }
     
