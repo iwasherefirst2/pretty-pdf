@@ -89,7 +89,7 @@ class Loader
 
     /**
      * @param array $classes
-     * @throws Exception
+     * @throws PrettyPdfException
      */
     public function addMethodFromClasses(array $classes): void
     {
@@ -104,7 +104,7 @@ class Loader
 
     /**
      * @param $class
-     * @throws Exception
+     * @throws PrettyPdfException
      */
     private function addMethodFromClass($class): void
     {
@@ -131,16 +131,16 @@ class Loader
 
     /**
      * @param $methodname
-     * @throws Exception
+     * @throws PrettyPdfException
      */
     private function validateNoOverwrite($methodname): void
     {
         if (!$this->allowOverwrite && array_key_exists($methodname, $this->methods)) {
-            throw new Exception('You are overwriting an exiting methods. Please change method name or allow overwriting in BeautyBill.', 1);
+            throw new PrettyPdfException('You are overwriting an exiting methods. Please change method name or allow overwriting in BeautyBill.', 1);
         }
 
         if (in_array($methodname, $this->blockedMethods)) {
-            throw new Exception('Method is unreachable because its already definied in BeautyBill. Change method name.', 1);
+            throw new PrettyPdfException('Method is unreachable because its already definied in BeautyBill. Change method name.', 1);
         }
     }
 }
