@@ -126,7 +126,11 @@ class Loader
     // The native function is_subclass_of does not work for abstract classes
     private function isDrawable($class): bool
     {
-        $reflectionClass = new \ReflectionClass($class);
+        $reflectionClass = new ReflectionClass($class);
+
+        if(empty($reflectionClass->getParentClass()->name)){
+            return false;
+        }
 
         return $reflectionClass->getParentClass()->name ==  'PrettyPdf\Partials\Drawable';
     }
