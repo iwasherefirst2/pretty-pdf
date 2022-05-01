@@ -8,7 +8,6 @@ class PDF extends \tFPDF
     private int $topMargin = 10;
     private int $rightMargin = 10;
     private array $words;
-    private string $lang;
     public int $yPositionAfterTable;
     public int $yPositionAfterTotalAmount;
     public int $halfContentWidth;
@@ -16,8 +15,6 @@ class PDF extends \tFPDF
     const MAP_NAMES = [
         'documentWidth' => 'w',
     ];
-    
-    private $localizationPath;
 
     public function __construct()
     {
@@ -34,8 +31,7 @@ class PDF extends \tFPDF
         $this->SetMargins($this->leftMargin, $this->topMargin);
         $this->AddPage();
 
-        $this->setLocalizationPath(__DIR__ . '/Localization/');
-        $this->localize('en');
+        $this->setLocalizationPath(__DIR__ . '/Localization/default.php');
 
         $this->halfContentWidth = $this->w * 0.5 - $this->leftMargin;
     }
@@ -64,21 +60,12 @@ class PDF extends \tFPDF
         return $this->{$name};
     }
     
-    public function setLocalizationPath(string $localizationPath): void
+    public function setLocalizationPath(string $fullPath): void
     {
-        $this->localizationPath = $localizationPath;
-    }
-
-    public function localize($lang): void
-    {
-        $fullPath = $this->localizationPath . $lang . '.php';
-        
         if (!file_exists($fullPath)) {
             throw new PrettyPdfException('File ' . $fullPath . ' does not exists.', 1);
         }
 
         $this->words = include $fullPath;
-
-        $this->lang = $lang;
     }
 }
