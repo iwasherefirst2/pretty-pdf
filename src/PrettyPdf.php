@@ -2,6 +2,9 @@
 
 namespace PrettyPdf;
 
+use ReflectionClass;
+use ReflectionMethod;
+
 /**
  * Class PrettyPdf
  * @package PrettyPdf
@@ -17,8 +20,8 @@ class PrettyPdf
     {
         $this->pdf = new PDF();
 
-        $localClass = new \ReflectionClass($this);
-        $localMethods = $localClass->getMethods(\ReflectionMethod::IS_PUBLIC);
+        $localClass = new ReflectionClass($this);
+        $localMethods = $localClass->getMethods(ReflectionMethod::IS_PUBLIC);
         
         $this->loader = new Loader($localMethods, $this->pdf);
     }

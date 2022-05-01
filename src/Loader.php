@@ -2,8 +2,10 @@
 
 namespace PrettyPdf;
 
-use Exception;
 use PrettyPdf\Builder\Cell;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use ReflectionClass;
 
 /**
  * Class Loader
@@ -52,9 +54,9 @@ class Loader
     {
         $classes = [];
 
-        $iterator = new \RecursiveDirectoryIterator(__DIR__ . '/Partials');
+        $iterator = new RecursiveDirectoryIterator(__DIR__ . '/Partials');
 
-        foreach (new \RecursiveIteratorIterator($iterator) as $directoryIterator) {
+        foreach (new RecursiveIteratorIterator($iterator) as $directoryIterator) {
             if (!$directoryIterator->getExtension() == 'php') {
                 continue;
             }
