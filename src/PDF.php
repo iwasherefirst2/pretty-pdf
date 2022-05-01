@@ -74,7 +74,7 @@ class PDF extends \tFPDF
         $fullPath = $this->localizationPath . $lang . '.php';
         
         if (!file_exists($fullPath)) {
-            throw new \Exception('File ' . $fullPath . ' does not exists.', 1);
+            throw new PrettyPdfException('File ' . $fullPath . ' does not exists.', 1);
         }
 
         $this->words = include $fullPath;

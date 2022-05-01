@@ -2,8 +2,10 @@
 
 namespace PrettyPdf;
 
-use Exception;
 use PrettyPdf\Builder\Cell;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use ReflectionClass;
 
 /**
  * Class Loader
@@ -21,13 +23,9 @@ class Loader
     public function __construct(array $localMethods, PDF $pdf)
     {
         $this->pdf = $pdf;
-
         $this->allowOverwrite = false;
-
         $this->methods = [];
-        
         $this->blockedMethods = $localMethods;
-        
         $this->addBasicPartials($localMethods);
     }
     
@@ -56,9 +54,9 @@ class Loader
     {
         $classes = [];
 
-        $iterator = new \RecursiveDirectoryIterator(__DIR__ . '/Partials');
+        $iterator = new RecursiveDirectoryIterator(__DIR__ . '/Partials');
 
-        foreach (new \RecursiveIteratorIterator($iterator) as $directoryIterator) {
+        foreach (new RecursiveIteratorIterator($iterator) as $directoryIterator) {
             if (!$directoryIterator->getExtension() == 'php') {
                 continue;
             }
@@ -93,7 +91,7 @@ class Loader
 
     /**
      * @param array $classes
-     * @throws Exception
+     * @throws PrettyPdfException
      */
     public function addMethodFromClasses(array $classes): void
     {
@@ -108,7 +106,7 @@ class Loader
 
     /**
      * @param $class
-     * @throws Exception
+     * @throws PrettyPdfException
      */
     private function addMethodFromClass($class): void
     {
@@ -128,23 +126,27 @@ class Loader
     // The native function is_subclass_of does not work for abstract classes
     private function isDrawable($class): bool
     {
-        $reflectionClass = new \ReflectionClass($class);
+        $reflectionClass = new ReflectionClass($class);
+
+        if(empty($reflectionClass->getParentClass()->name)){
+            return false;
+        }
 
         return $reflectionClass->getParentClass()->name ==  'PrettyPdf\Partials\Drawable';
     }
 
     /**
      * @param $methodname
-     * @throws Exception
+     * @throws PrettyPdfException
      */
     private function validateNoOverwrite($methodname): void
     {
         if (!$this->allowOverwrite && array_key_exists($methodname, $this->methods)) {
-            throw new Exception('You are overwriting an exiting methods. Please change method name or allow overwriting in BeautyBill.', 1);
+            throw new PrettyPdfException('You are overwriting an exiting methods. Please change method name or allow overwriting in BeautyBill.', 1);
         }
 
         if (in_array($methodname, $this->blockedMethods)) {
-            throw new Exception('Method is unreachable because its already definied in BeautyBill. Change method name.', 1);
+            throw new PrettyPdfException('Method is unreachable because its already definied in BeautyBill. Change method name.', 1);
         }
     }
 }
